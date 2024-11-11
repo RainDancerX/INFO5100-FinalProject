@@ -4,54 +4,47 @@
  */
 package PlatformController;
 
-import Product.Product;
 import User.Customer;
+import User.User;
+import User.User.UserType;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author lucas
  */
 public class PlatformController {
-    
-//    private Map<Member, List<Book>> borrowedBooks = new HashMap<>();
-    private List<Customer> members = new ArrayList<>(); // List to store members
-    private List<Product> books = new ArrayList<>(); // List to store books
-    private Customer currentMember;
-    
-    public PlatformController(){
-        
+    // List to store members
+    private List<User> userList = new ArrayList<>();
+    private User currentUser;
+
+    public PlatformController() {
+
     }
 
-       public void registerMember(String username, String password, long phone) {
-        Customer newMember = new Customer(username, password, phone);
-        members.add(newMember);
+    public void registerMember(String username, String password, long phone, UserType userType, int age) {
+        User newMember = new Customer(username, password, phone, userType, age);
+        userList.add(newMember);
     }
 
     // Validate login credentials
     public boolean validateLogin(String username, String password) {
-        for (Customer member : members) {
-            if (member.getUsername().equals(username) && member.getPassword().equals(password)) {
-                currentMember = member;
+        for (User user : userList) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                currentUser = user;
                 return true;
             }
         }
         return false;
     }
 
-    public Customer getCurrentMember() {
-        return currentMember;
+    public User getCurrentMember() {
+        return currentUser;
     }
 
-    public List<Customer> getAllMembers() {
-        return members;
+    public List<User> getAllMembers() {
+        return userList;
     }
 
-    public List<Product> getAllBooks() {
-        return books;
-    }
-  
 }

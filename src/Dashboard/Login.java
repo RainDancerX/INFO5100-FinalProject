@@ -57,23 +57,23 @@ public class Login extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("SignPainter", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Library Management System");
+        jLabel5.setText("FreshMart");
 
         javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
         Right.setLayout(RightLayout);
         RightLayout.setHorizontalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(122, 122, 122)
                 .addComponent(jLabel5)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGap(222, 222, 222)
+                .addGap(219, 219, 219)
                 .addComponent(jLabel5)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         jPanel1.add(Right);
@@ -110,6 +110,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        signUpButton.setBackground(new java.awt.Color(255, 255, 255));
         signUpButton.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         signUpButton.setForeground(new java.awt.Color(255, 51, 51));
         signUpButton.setText("Sign Up");

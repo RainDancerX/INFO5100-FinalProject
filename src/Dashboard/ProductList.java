@@ -5,13 +5,7 @@
 package Dashboard;
 
 import PlatformController.PlatformController;
-import User.Customer;
-import java.awt.BorderLayout;
-import java.util.List;
-import java.util.Set;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import User.User;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class ProductList extends javax.swing.JFrame {
 
     private PlatformController controller;
-    private Customer currentMember;
+    private User currentUser;
     DefaultTableModel model;
 
     /**
@@ -31,7 +25,7 @@ public class ProductList extends javax.swing.JFrame {
         this.controller = controller;
         initComponents();
         // Retrieve the logged-in member
-        currentMember = controller.getCurrentMember();
+        currentUser = controller.getCurrentMember();
     }
 
     /**
@@ -104,7 +98,7 @@ public class ProductList extends javax.swing.JFrame {
     private void myCartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCartButtonActionPerformed
         // TODO add your handling code here:
         //        renderBooks();
-        ShoppingCart myCartFrame = new ShoppingCart(controller, currentMember);
+        ShoppingCart myCartFrame = new ShoppingCart(controller, currentUser);
         myCartFrame.setVisible(true);
         myCartFrame.pack();
         // Set the default size for the bookList, otherwise it would minimize the window for no reason

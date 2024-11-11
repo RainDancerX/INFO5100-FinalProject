@@ -6,6 +6,7 @@ package Dashboard;
 
 import PlatformController.PlatformController;
 import User.Customer;
+import User.User;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,7 +24,7 @@ public class ShoppingCart extends javax.swing.JFrame {
     /**
      * Creates new form MyBookShelf
      */
-    public ShoppingCart(PlatformController controller, Customer currentMember) {
+    public ShoppingCart(PlatformController controller, User currentUser) {
         this.controller = controller;
         initComponents();
     }
