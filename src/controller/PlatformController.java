@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package PlatformController;
+package controller;
 
-import User.Customer;
-import User.User;
-import User.User.UserType;
+import model.Customer;
+import model.User;
+import model.User.UserType;
 import java.util.ArrayList;
 import java.util.List;
 

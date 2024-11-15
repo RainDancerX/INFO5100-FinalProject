@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package Dashboard;
+package model;
 
-import PlatformController.PlatformController;
+import controller.PlatformController;
+import controller.PlatformController;
+import view.Login;
 
 /**
  *

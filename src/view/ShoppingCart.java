@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Dashboard;
+package view;
 
-import PlatformController.PlatformController;
-import User.Customer;
-import User.User;
+import controller.PlatformController;
+import controller.PlatformController;
+import model.Customer;
+import model.User;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
