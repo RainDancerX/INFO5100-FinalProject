@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package com.snapshop.form;
 
-import controller.PlatformController;
-import controller.PlatformController;
-import model.Customer;
-import model.User;
+import com.snapshop.controller.PlatformController;
+import com.snapshop.controller.PlatformController;
+import com.snapshop.main.Dashboard;
+import com.snapshop.model.Customer;
+import com.snapshop.model.User;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -105,7 +106,7 @@ public class ShoppingCart extends javax.swing.JFrame {
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
         // TODO add your handling code here:
-        ProductList ProductListFrame = new ProductList(controller);
+        Dashboard ProductListFrame = new Dashboard(controller);
         ProductListFrame.setVisible(true);
         ProductListFrame.pack();
         // Set the default size for the bookList, otherwise it would minimize the window for no reason

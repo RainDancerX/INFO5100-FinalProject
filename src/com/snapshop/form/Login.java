@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package com.snapshop.form;
 
-import controller.PlatformController;
-import controller.PlatformController;
+import com.snapshop.controller.PlatformController;
+import com.snapshop.main.Dashboard;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +22,11 @@ public class Login extends javax.swing.JFrame {
     public Login(PlatformController controller) {
         this.controller = controller;
         initComponents();
+
+        // set Action command for user type radio button
+        customerButton.setActionCommand("customer");
+        adminButton.setActionCommand("admin");
+        associateButton.setActionCommand("associate");
     }
 
     /**
@@ -33,6 +38,7 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        roleGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -45,6 +51,11 @@ public class Login extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
         signUpButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        exitButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        customerButton = new javax.swing.JRadioButton();
+        adminButton = new javax.swing.JRadioButton();
+        associateButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -58,23 +69,23 @@ public class Login extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("SignPainter", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("FreshMart");
+        jLabel5.setText("SnapShop");
 
         javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
         Right.setLayout(RightLayout);
         RightLayout.setHorizontalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
+                .addGap(135, 135, 135)
                 .addComponent(jLabel5)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGap(219, 219, 219)
+                .addGap(224, 224, 224)
                 .addComponent(jLabel5)
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
         jPanel1.add(Right);
@@ -126,29 +137,70 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("I don't have an account");
 
+        exitButton.setBackground(new java.awt.Color(0, 102, 102));
+        exitButton.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(51, 51, 51));
+        exitButton.setText("Exit");
+        exitButton.setActionCommand("login");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setText("User Type");
+
+        roleGroup.add(customerButton);
+        customerButton.setForeground(new java.awt.Color(102, 102, 102));
+        customerButton.setText("Customer");
+
+        roleGroup.add(adminButton);
+        adminButton.setForeground(new java.awt.Color(102, 102, 102));
+        adminButton.setText("Admin");
+
+        roleGroup.add(associateButton);
+        associateButton.setForeground(new java.awt.Color(102, 102, 102));
+        associateButton.setText("Associate");
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(signUpButton)
+                .addGap(79, 79, 79))
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
             .addGroup(LeftLayout.createSequentialGroup()
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LeftLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
+                        .addGap(21, 21, 21)
+                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(pwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(usernameInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(LeftLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(signUpButton))))
+                                .addComponent(customerButton)
+                                .addGap(56, 56, 56)
+                                .addComponent(adminButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(associateButton))))
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jLabel1)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,20 +208,29 @@ public class Login extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(customerButton)
+                    .addComponent(adminButton)
+                    .addComponent(associateButton))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(pwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(signUpButton))
-                .addGap(56, 56, 56))
+                    .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(signUpButton)
+                    .addComponent(jLabel3))
+                .addContainerGap())
         );
 
         loginButton.getAccessibleContext().setAccessibleName("");
@@ -209,23 +270,53 @@ public class Login extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        String username = usernameInput.getText();
-        String password = new String(pwdInput.getPassword());    
-        handleLogin(username, password);
+        // Retrieve user inputs
+        String username = usernameInput.getText().trim();
+        String password = new String(pwdInput.getPassword()).trim();
+        // Retrieve the selected role from the ButtonGroup
+        String role = null;
+        if (roleGroup.getSelection() != null) {
+            role = roleGroup.getSelection().getActionCommand();
+        }
+
+        handleLogin(username, password, role);
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void handleLogin(String username, String password) {
-        boolean isValid = controller.validateLogin(username, password);
-        if (isValid) {
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void handleLogin(String username, String password, String role) {
+        boolean success = controller.validateLogin(username, password, role);
+        if (success) {
             JOptionPane.showMessageDialog(this, "Login successful!", "Information", JOptionPane.INFORMATION_MESSAGE);
-            // Proceed to the main application page
-            ProductList ProductListFrame = new ProductList(controller);
-            ProductListFrame.setVisible(true);
-            ProductListFrame.pack();
-            // Set the default size for the bookList, otherwise it would minimize the window for no reason
-            ProductListFrame.setSize(1000, 650); 
-            ProductListFrame.setLocationRelativeTo(null);
-            this.dispose();
+            switch (role) {
+                case "customer":
+                    Dashboard dashboardFrame = new Dashboard(controller);
+                    dashboardFrame.setVisible(true);
+                    dashboardFrame.pack();
+//                    dashboardFrame.setSize(1000, 650);
+//                    dashboardFrame.setLocationRelativeTo(null);
+                    this.dispose();
+                    break;
+                case "admin":
+                    Admin adminFrame = new Admin(controller);
+                    adminFrame.setVisible(true);
+                    adminFrame.pack();
+                    adminFrame.setSize(1000, 650);
+                    adminFrame.setLocationRelativeTo(null);
+                    this.dispose();
+                    break;
+                case "associate":
+                    Associate associateFrame = new Associate(controller);
+                    associateFrame.setVisible(true);
+                    associateFrame.pack();
+                    associateFrame.setSize(1000, 650);
+                    associateFrame.setLocationRelativeTo(null);
+                    this.dispose();
+                    break;
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
@@ -234,14 +325,20 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
+    private javax.swing.JRadioButton adminButton;
+    private javax.swing.JRadioButton associateButton;
+    private javax.swing.JRadioButton customerButton;
+    private javax.swing.JButton exitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField pwdInput;
+    private javax.swing.ButtonGroup roleGroup;
     private javax.swing.JButton signUpButton;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables

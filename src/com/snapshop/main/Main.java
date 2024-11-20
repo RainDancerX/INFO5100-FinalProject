@@ -2,17 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package model;
+package com.snapshop.main;
 
-import controller.PlatformController;
-import controller.PlatformController;
-import view.Login;
+import com.snapshop.controller.PlatformController;
+import com.snapshop.form.Login;
 
 /**
  *
  * @author lucas
  */
-public class MainDashboard {
+public class Main {
 
     /**
      * @param args the command line arguments

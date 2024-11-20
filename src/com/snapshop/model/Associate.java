@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package com.snapshop.model;
 
 /**
  *
@@ -10,10 +10,10 @@ package model;
  */
 public class Associate extends User {
 
-    private static int AssociateID = 0;
+    private int associateId;
 
-    public Associate(String username, String password, long contactInformation, UserType userType) {
-        super(username, password, contactInformation, userType);
-        this.AssociateID = ++AssociateID;
+    public Associate(String username, String password, int associateId ) {
+        super(username, password);
+        this.associateId = associateId;
     }
 }
