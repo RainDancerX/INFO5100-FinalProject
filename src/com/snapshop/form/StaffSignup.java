@@ -110,18 +110,24 @@ public class StaffSignup extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Password");
 
-        signupButton.setBackground(new java.awt.Color(0, 102, 102));
-        signupButton.setForeground(new java.awt.Color(51, 51, 51));
+        signupButton.setBackground(new java.awt.Color(0, 153, 153));
+        signupButton.setForeground(new java.awt.Color(255, 255, 255));
         signupButton.setText("Sign Up");
+        signupButton.setBorderPainted(false);
+        signupButton.setFocusPainted(false);
+        signupButton.setOpaque(true);
         signupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signupButtonActionPerformed(evt);
             }
         });
 
-        goBackButton.setBackground(new java.awt.Color(0, 102, 102));
-        goBackButton.setForeground(new java.awt.Color(51, 51, 51));
+        goBackButton.setBackground(new java.awt.Color(102, 102, 102));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("Back");
+        goBackButton.setBorderPainted(false);
+        goBackButton.setFocusPainted(false);
+        goBackButton.setOpaque(true);
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
@@ -200,11 +206,11 @@ public class StaffSignup extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(securityInput, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(goBackButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         jPanel2.add(jPanel3);

@@ -43,9 +43,9 @@ public class WinButton extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmdClose = new com.raven.swing.win_button.Button();
-        cmdMi = new com.raven.swing.win_button.Button();
-        cmdRe = new com.raven.swing.win_button.Button();
+        cmdClose = new com.snapshop.swing.win_button.Button();
+        cmdMi = new com.snapshop.swing.win_button.Button();
+        cmdRe = new com.snapshop.swing.win_button.Button();
 
         cmdClose.setBackground(new java.awt.Color(240, 61, 61));
 
@@ -79,8 +79,8 @@ public class WinButton extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.raven.swing.win_button.Button cmdClose;
-    private com.raven.swing.win_button.Button cmdMi;
-    private com.raven.swing.win_button.Button cmdRe;
+    private com.snapshop.swing.win_button.Button cmdClose;
+    private com.snapshop.swing.win_button.Button cmdMi;
+    private com.snapshop.swing.win_button.Button cmdRe;
     // End of variables declaration//GEN-END:variables
 }

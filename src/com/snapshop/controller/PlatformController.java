@@ -17,6 +17,8 @@ import java.sql.SQLException; // Add this import
 import javax.swing.JOptionPane;
 import com.snapshop.model.Administrator;
 import com.snapshop.model.Associate;
+import com.snapshop.model.ModelItem;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -249,6 +251,42 @@ public class PlatformController {
 
     public List<User> getAllMembers() {
         return userList;
+    }
+
+    public List<ModelItem> getAllItems() {
+        List<ModelItem> items = new ArrayList<>();
+        String query = "SELECT * FROM item";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                ImageIcon image;
+                try {
+                    // Attempt to load the image from the path in the database
+                    image = new ImageIcon(getClass().getResource(rs.getString("img")));
+                } catch (Exception e) {
+                    // If the image path is invalid or missing, use a default image
+                    image = new ImageIcon(getClass().getResource("/com/snapshop/image/default.png"));
+                }
+                ModelItem item = new ModelItem(
+                        rs.getInt("itemId"),
+                        rs.getString("itemName"),
+                        rs.getString("description"),
+                        rs.getString("category"),
+                        rs.getString("gender"),
+                        rs.getDouble("price"),
+                        rs.getInt("inventory"),
+                        rs.getString("brand"),
+                        image
+                // new ImageIcon(getClass().getResource(rs.getString("img"))) // Adjust based on how you store image paths
+                );
+                items.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return items;
     }
 
 }

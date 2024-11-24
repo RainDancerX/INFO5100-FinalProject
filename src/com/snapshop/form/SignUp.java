@@ -78,6 +78,8 @@ public class SignUp extends javax.swing.JFrame {
         staffButton.setBorderPainted(false);
         staffButton.setContentAreaFilled(false);
         staffButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        staffButton.setFocusPainted(false);
+        staffButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         staffButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 staffButtonActionPerformed(evt);
@@ -104,7 +106,7 @@ public class SignUp extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(staffButton)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,18 +144,24 @@ public class SignUp extends javax.swing.JFrame {
         pwdInput.setForeground(new java.awt.Color(102, 102, 102));
         pwdInput.setPreferredSize(new java.awt.Dimension(64, 28));
 
-        signupButton.setBackground(new java.awt.Color(0, 102, 102));
-        signupButton.setForeground(new java.awt.Color(51, 51, 51));
+        signupButton.setBackground(new java.awt.Color(0, 153, 153));
+        signupButton.setForeground(new java.awt.Color(255, 255, 255));
         signupButton.setText("Sign Up");
+        signupButton.setBorderPainted(false);
+        signupButton.setFocusPainted(false);
+        signupButton.setOpaque(true);
         signupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signupButtonActionPerformed(evt);
             }
         });
 
-        goBackButton.setBackground(new java.awt.Color(0, 102, 102));
-        goBackButton.setForeground(new java.awt.Color(51, 51, 51));
+        goBackButton.setBackground(new java.awt.Color(102, 102, 102));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("Back");
+        goBackButton.setBorderPainted(false);
+        goBackButton.setFocusPainted(false);
+        goBackButton.setOpaque(true);
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
@@ -206,7 +214,7 @@ public class SignUp extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel4)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                     .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -239,8 +247,8 @@ public class SignUp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(goBackButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(9, Short.MAX_VALUE))
         );

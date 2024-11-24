@@ -111,11 +111,14 @@ public class Login extends javax.swing.JFrame {
 
         pwdInput.setPreferredSize(new java.awt.Dimension(64, 24));
 
-        loginButton.setBackground(new java.awt.Color(0, 102, 102));
-        loginButton.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        loginButton.setForeground(new java.awt.Color(51, 51, 51));
+        loginButton.setBackground(new java.awt.Color(0, 153, 153));
+        loginButton.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Login");
         loginButton.setActionCommand("login");
+        loginButton.setBorderPainted(false);
+        loginButton.setFocusPainted(false);
+        loginButton.setOpaque(true);
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
@@ -123,25 +126,29 @@ public class Login extends javax.swing.JFrame {
         });
 
         signUpButton.setBackground(new java.awt.Color(255, 255, 255));
-        signUpButton.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         signUpButton.setForeground(new java.awt.Color(255, 51, 51));
-        signUpButton.setText("Sign Up");
+        signUpButton.setText("Sign up here");
         signUpButton.setActionCommand("signUp");
         signUpButton.setBorderPainted(false);
         signUpButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        signUpButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         signUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpButtonActionPerformed(evt);
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("I don't have an account");
 
-        exitButton.setBackground(new java.awt.Color(0, 102, 102));
-        exitButton.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        exitButton.setForeground(new java.awt.Color(51, 51, 51));
+        exitButton.setBackground(new java.awt.Color(102, 102, 102));
+        exitButton.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
         exitButton.setText("Exit");
         exitButton.setActionCommand("login");
+        exitButton.setBorderPainted(false);
+        exitButton.setFocusPainted(false);
+        exitButton.setOpaque(true);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -168,18 +175,6 @@ public class Login extends javax.swing.JFrame {
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(signUpButton)
-                .addGap(79, 79, 79))
-            .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
             .addGroup(LeftLayout.createSequentialGroup()
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LeftLayout.createSequentialGroup()
@@ -201,6 +196,19 @@ public class Login extends javax.swing.JFrame {
                         .addGap(143, 143, 143)
                         .addComponent(jLabel1)))
                 .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LeftLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(signUpButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(LeftLayout.createSequentialGroup()
+                        .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,15 +230,14 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(pwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signUpButton)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+                    .addComponent(jLabel3)))
         );
 
         loginButton.getAccessibleContext().setAccessibleName("");

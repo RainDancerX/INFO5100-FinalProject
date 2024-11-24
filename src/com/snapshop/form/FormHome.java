@@ -1,16 +1,87 @@
 package com.snapshop.form;
 
+import com.snapshop.component.Item;
+import com.snapshop.event.EventItem;
+import com.snapshop.model.ModelItem;
+import com.snapshop.swing.ScrollBar;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author lucas
  */
 public class FormHome extends javax.swing.JPanel {
 
+    private EventItem event;
+    private SelectedItem item;
+    private Ads ad;
+
+    /**
+     * @param event the event to set
+     */
+    public void setEvent(EventItem event) {
+        this.event = event;
+    }
+
     /**
      * Creates new form FormHome
      */
     public FormHome() {
         initComponents();
+        scroll.setVerticalScrollBar(new ScrollBar());
+        init();
+    }
+
+    private void init() {
+        ad = new Ads();
+        subPanel.setLayout(new BorderLayout());
+        subPanel.add(ad);
+    }
+
+    public void addItem(ModelItem data) {
+        Item item = new Item();
+        item.setData(data);
+        item.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+                if (SwingUtilities.isLeftMouseButton(me)) {
+                    event.itemClick(item, data);
+                }
+            }
+        });
+        panelItem.add(item);
+        panelItem.repaint();
+        panelItem.revalidate();
+    }
+
+    public void setSelected(Component item) {
+        for (Component com : panelItem.getComponents()) {
+            Item i = (Item) com;
+            if (i.isSelected()) {
+                i.setSelected(false);
+            }
+        }
+        ((Item) item).setSelected(true);
+    }
+
+    public void showItem(ModelItem data) {
+        // Remove all components from the subPanel
+        subPanel.removeAll();
+
+        // Create and add the new SelectedItem panel
+        item = new SelectedItem();
+        item.setData(data);
+        subPanel.add(item, BorderLayout.CENTER);
+
+        // Revalidate and repaint the subPanel to reflect changes
+        subPanel.revalidate();
+        subPanel.repaint();
     }
 
     /**
@@ -22,78 +93,55 @@ public class FormHome extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         scroll = new javax.swing.JScrollPane();
         panelItem = new com.snapshop.swing.PanelItem();
-        item1 = new com.snapshop.component.Item();
-        item2 = new com.snapshop.component.Item();
-        item3 = new com.snapshop.component.Item();
-        item4 = new com.snapshop.component.Item();
-        item5 = new com.snapshop.component.Item();
-        item6 = new com.snapshop.component.Item();
-        item7 = new com.snapshop.component.Item();
-        item8 = new com.snapshop.component.Item();
-        item9 = new com.snapshop.component.Item();
-        item10 = new com.snapshop.component.Item();
+        subPanel = new javax.swing.JPanel();
 
         setOpaque(false);
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("PRODUCT");
-
         scroll.setBorder(null);
         scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        panelItem.add(item1);
-        panelItem.add(item2);
-        panelItem.add(item3);
-        panelItem.add(item4);
-        panelItem.add(item5);
-        panelItem.add(item6);
-        panelItem.add(item7);
-        panelItem.add(item8);
-        panelItem.add(item9);
-        panelItem.add(item10);
-
         scroll.setViewportView(panelItem);
+
+        subPanel.setBackground(new java.awt.Color(255, 255, 255));
+        subPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout subPanelLayout = new javax.swing.GroupLayout(subPanel);
+        subPanel.setLayout(subPanelLayout);
+        subPanelLayout.setHorizontalGroup(
+            subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 258, Short.MAX_VALUE)
+        );
+        subPanelLayout.setVerticalGroup(
+            subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 1077, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(subPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.snapshop.component.Item item1;
-    private com.snapshop.component.Item item10;
-    private com.snapshop.component.Item item2;
-    private com.snapshop.component.Item item3;
-    private com.snapshop.component.Item item4;
-    private com.snapshop.component.Item item5;
-    private com.snapshop.component.Item item6;
-    private com.snapshop.component.Item item7;
-    private com.snapshop.component.Item item8;
-    private com.snapshop.component.Item item9;
-    private javax.swing.JLabel jLabel2;
     private com.snapshop.swing.PanelItem panelItem;
     private javax.swing.JScrollPane scroll;
+    private javax.swing.JPanel subPanel;
     // End of variables declaration//GEN-END:variables
 }

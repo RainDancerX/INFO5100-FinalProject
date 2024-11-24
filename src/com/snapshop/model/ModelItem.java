@@ -15,17 +15,39 @@ public class ModelItem {
     private int itemId;
     private String itemName;
     private String description;
+    private String brand;
     private String category;
     private double price;
     private Icon image;
+    private int inventory;
+    private String gender;
 
-    public ModelItem(int itemId, String itemName, String description, String category, double price, Icon image) {
+    public ModelItem(int itemId, String itemName, String description, String category, String gender, double price, int inventory, String brand, Icon image) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.description = description;
+        this.brand = brand;
         this.category = category;
         this.price = price;
         this.image = image;
+        this.inventory = inventory;
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender() {
+        this.gender = gender;
+    }
+
+    public int getInventory() {
+        return inventory;
+    }
+
+    public void setInventory() {
+        this.inventory = inventory;
     }
 
     /**
@@ -68,6 +90,14 @@ public class ModelItem {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String setBrand(String brand) {
+        return this.brand = brand;
     }
 
     /**
