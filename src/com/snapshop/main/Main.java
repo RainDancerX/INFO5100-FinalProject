@@ -23,18 +23,18 @@ public class Main {
         PlatformController controller = new PlatformController();
         
         // Display login interface
-//        Login loginFrame = new Login(controller);
-//        loginFrame.setVisible(true);
-//        loginFrame.pack();
-//        loginFrame.setLocationRelativeTo(null);
+        Login loginFrame = new Login();
+        loginFrame.setVisible(true);
+        loginFrame.pack();
+        loginFrame.setLocationRelativeTo(null);
 
 
 
         // For Developing Only
-        Dashboard db = new Dashboard(controller);
-        db.setVisible(true);
-        db.pack();
-        db.setLocationRelativeTo(null);
+//        Dashboard db = new Dashboard(controller);
+//        db.setVisible(true);
+//        db.pack();
+//        db.setLocationRelativeTo(null);
     }   
     
 }

@@ -19,8 +19,9 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    public Login(PlatformController controller) {
-        this.controller = controller;
+    public Login() {
+       controller = PlatformController.getInstance();
+//        this.controller = controller;
         initComponents();
 
         // set Action command for user type radio button
@@ -268,7 +269,7 @@ public class Login extends javax.swing.JFrame {
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
         // Display sign up interface and hide login inteface
-        SignUp signUpFrame = new SignUp(controller);
+        SignUp signUpFrame = new SignUp();
         signUpFrame.setVisible(true);
         signUpFrame.pack();
         signUpFrame.setLocationRelativeTo(null);
@@ -300,7 +301,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Login successful!", "Information", JOptionPane.INFORMATION_MESSAGE);
             switch (role) {
                 case "customer":
-                    Dashboard dashboardFrame = new Dashboard(controller);
+                    Dashboard dashboardFrame = new Dashboard();
                     dashboardFrame.setVisible(true);
                     dashboardFrame.pack();
 //                    dashboardFrame.setSize(1000, 650);

@@ -10,10 +10,11 @@ import java.util.List;
 import com.snapshop.model.Customer;
 import com.snapshop.model.User;
 import com.snapshop.util.DatabaseConnection;
-import java.sql.Connection; // Add this import
-import java.sql.PreparedStatement; // Add this import
-import java.sql.ResultSet; // Add this import
-import java.sql.SQLException; // Add this import
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import com.snapshop.model.Administrator;
 import com.snapshop.model.Associate;
@@ -26,6 +27,9 @@ import javax.swing.ImageIcon;
  */
 public class PlatformController {
 
+    // Singleton instance
+    private static PlatformController instance;
+
     // List to store members
     private List<User> userList = new ArrayList<>();
     private User currentUser;
@@ -34,10 +38,18 @@ public class PlatformController {
 
     }
 
+    public static PlatformController getInstance() {
+        if (instance == null) {
+            instance = new PlatformController();
+        }
+        return instance;
+    }
+
     public boolean registerCustomer(String username, String password, int age, String phone, String address) {
         Connection connection = null;
         PreparedStatement checkStatement = null;
-        PreparedStatement insertStatement = null;
+        PreparedStatement insertCustomerStatement = null;
+        PreparedStatement insertCartStatement = null;
         ResultSet resultSet = null;
 
         try {
@@ -57,18 +69,38 @@ public class PlatformController {
                 return false;
             }
 
-            // Step 2: Insert the new customer if no duplicate found
-            String insertSql = "INSERT INTO customer (username, password, age, phone, address) VALUES (?, ?, ?, ?, ?)";
-            insertStatement = connection.prepareStatement(insertSql);
-            insertStatement.setString(1, username);
-            insertStatement.setString(2, password);
-            insertStatement.setInt(3, age);
-            insertStatement.setString(4, phone);
-            insertStatement.setString(5, address);
+            // Step 2: Insert the new customer
+            String insertCustomerSql = "INSERT INTO customer (username, password, age, phone, address) VALUES (?, ?, ?, ?, ?)";
+            insertCustomerStatement = connection.prepareStatement(insertCustomerSql, Statement.RETURN_GENERATED_KEYS);
+            insertCustomerStatement.setString(1, username);
+            insertCustomerStatement.setString(2, password);
+            insertCustomerStatement.setInt(3, age);
+            insertCustomerStatement.setString(4, phone);
+            insertCustomerStatement.setString(5, address);
 
             // Execute the insert
-            insertStatement.executeUpdate();
-            System.out.println("User registered successfully: " + username);
+            int affectedRows = insertCustomerStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating customer failed, no rows affected.");
+            }
+
+            // Retrieve the generated customerId
+            ResultSet generatedKeys = insertCustomerStatement.getGeneratedKeys();
+            int customerId = -1;
+            if (generatedKeys.next()) {
+                customerId = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Creating customer failed, no ID obtained.");
+            }
+
+            // Step 3: Create a new cart for the customer
+            String insertCartSql = "INSERT INTO cart (customerId, totalAmount) VALUES (?, ?)";
+            insertCartStatement = connection.prepareStatement(insertCartSql);
+            insertCartStatement.setInt(1, customerId);
+            insertCartStatement.setDouble(2, 0.00); // New cart starts with a total amount of 0
+            insertCartStatement.executeUpdate();
+
+            System.out.println("Customer and cart created successfully: " + username);
 
             // Show success message
             JOptionPane.showMessageDialog(null, "User registered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -87,8 +119,11 @@ public class PlatformController {
                 if (checkStatement != null) {
                     checkStatement.close();
                 }
-                if (insertStatement != null) {
-                    insertStatement.close();
+                if (insertCustomerStatement != null) {
+                    insertCustomerStatement.close();
+                }
+                if (insertCartStatement != null) {
+                    insertCartStatement.close();
                 }
                 if (connection != null) {
                     connection.close();
@@ -245,8 +280,53 @@ public class PlatformController {
         }
     }
 
-    public User getCurrentMember() {
-        return currentUser;
+    public User getCurrentUser() {
+        return this.currentUser;
+    }
+    
+    public int getCartId() {
+        Customer user = (Customer) currentUser;
+        int cartId = -1;
+        Connection connection = null;
+        PreparedStatement checkStatement = null;
+        PreparedStatement insertStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establish database connection
+            connection = DatabaseConnection.getConnection();
+
+            // Step 1: Check if the username already exists
+            String checkSql = "SELECT cartId FROM cart WHERE customerId = ?";
+            checkStatement = connection.prepareStatement(checkSql);
+            checkStatement.setInt(1, user.getCustomerId());
+
+            resultSet = checkStatement.executeQuery();
+
+            if (resultSet.next()) {
+                cartId = resultSet.getInt("cartId");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            // Close resources
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (checkStatement != null) {
+                    checkStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return cartId;
     }
 
     public List<User> getAllMembers() {

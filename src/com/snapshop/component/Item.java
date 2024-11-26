@@ -50,6 +50,7 @@ public class Item extends javax.swing.JPanel {
     public void setData(ModelItem data) {
         this.data = data;
         pic.setImage(data.getImage());
+        System.out.println(data.getImage());
         lbItemName.setText(data.getItemName());
 //        lbDescription.setText(data.getDescription());
         lbBrand.setText(data.getBrand());

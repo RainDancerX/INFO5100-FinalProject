@@ -21,8 +21,9 @@ public class SignUp extends javax.swing.JFrame {
     /**
      * Creates new form SignUp
      */
-    public SignUp(PlatformController controller) {
-        this.controller = controller;
+    public SignUp() {
+//        this.controller = controller;
+        controller = PlatformController.getInstance();
         initComponents();
     }
 
@@ -276,7 +277,7 @@ public class SignUp extends javax.swing.JFrame {
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
         // back to login interface
-        Login loginFrame = new Login(controller);
+        Login loginFrame = new Login();
         loginFrame.setVisible(true);
         loginFrame.pack();
         loginFrame.setLocationRelativeTo(null);
@@ -343,7 +344,7 @@ public class SignUp extends javax.swing.JFrame {
             boolean success = controller.registerCustomer(username, password, Integer.parseInt(ageText), phoneText, address);
 
             if (success) {
-                Login loginFrame = new Login(controller);
+                Login loginFrame = new Login();
                 loginFrame.setVisible(true);
                 loginFrame.pack();
                 loginFrame.setLocationRelativeTo(null);
@@ -354,7 +355,7 @@ public class SignUp extends javax.swing.JFrame {
 
     private void staffButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffButtonActionPerformed
         // TODO add your handling code here:
-        StaffSignup staffFrame = new StaffSignup(controller);
+        StaffSignup staffFrame = new StaffSignup();
         staffFrame.setVisible(true);
         staffFrame.pack();
         staffFrame.setLocationRelativeTo(null);

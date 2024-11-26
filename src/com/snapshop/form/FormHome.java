@@ -1,6 +1,7 @@
 package com.snapshop.form;
 
 import com.snapshop.component.Item;
+import com.snapshop.event.AddToCartListener;
 import com.snapshop.event.EventItem;
 import com.snapshop.model.ModelItem;
 import com.snapshop.swing.ScrollBar;
@@ -21,6 +22,7 @@ public class FormHome extends javax.swing.JPanel {
     private EventItem event;
     private SelectedItem item;
     private Ads ad;
+    private AddToCartListener addToCartListener;
 
     /**
      * @param event the event to set
@@ -32,10 +34,11 @@ public class FormHome extends javax.swing.JPanel {
     /**
      * Creates new form FormHome
      */
-    public FormHome() {
+    public FormHome(AddToCartListener addToCartListener) {
         initComponents();
         scroll.setVerticalScrollBar(new ScrollBar());
         init();
+        this.addToCartListener = addToCartListener;
     }
 
     private void init() {
@@ -75,7 +78,7 @@ public class FormHome extends javax.swing.JPanel {
         subPanel.removeAll();
 
         // Create and add the new SelectedItem panel
-        item = new SelectedItem();
+        item = new SelectedItem(addToCartListener);
         item.setData(data);
         subPanel.add(item, BorderLayout.CENTER);
 

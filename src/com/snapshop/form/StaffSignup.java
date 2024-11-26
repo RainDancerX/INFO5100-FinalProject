@@ -6,7 +6,6 @@ package com.snapshop.form;
 
 import com.snapshop.form.Login;
 import com.snapshop.controller.PlatformController;
-import com.snapshop.controller.PlatformController;
 import com.snapshop.model.User;
 import javax.swing.JOptionPane;
 
@@ -21,8 +20,8 @@ public class StaffSignup extends javax.swing.JFrame {
     /**
      * Creates new form SignUp
      */
-    public StaffSignup(PlatformController controller) {
-        this.controller = controller;
+    public StaffSignup() {
+        controller = PlatformController.getInstance();
         initComponents();
         adminButton.setActionCommand("admin");
         associateButton.setActionCommand("associate");
@@ -234,7 +233,7 @@ public class StaffSignup extends javax.swing.JFrame {
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
         // back to login interface
-        Login loginFrame = new Login(controller);
+        Login loginFrame = new Login();
         loginFrame.setVisible(true);
         loginFrame.pack();
         loginFrame.setLocationRelativeTo(null);
@@ -287,7 +286,7 @@ public class StaffSignup extends javax.swing.JFrame {
             boolean success = controller.registerStaff(username, password, securityCode, role);
 
             if (success) {
-                Login loginFrame = new Login(controller);
+                Login loginFrame = new Login();
                 loginFrame.setVisible(true);
                 loginFrame.pack();
                 loginFrame.setLocationRelativeTo(null);

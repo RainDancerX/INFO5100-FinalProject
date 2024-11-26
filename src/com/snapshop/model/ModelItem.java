@@ -5,6 +5,7 @@
 package com.snapshop.model;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,11 +19,11 @@ public class ModelItem {
     private String brand;
     private String category;
     private double price;
-    private Icon image;
+    private ImageIcon image;
     private int inventory;
     private String gender;
 
-    public ModelItem(int itemId, String itemName, String description, String category, String gender, double price, int inventory, String brand, Icon image) {
+    public ModelItem(int itemId, String itemName, String description, String category, String gender, double price, int inventory, String brand, ImageIcon image) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.description = description;
@@ -131,14 +132,14 @@ public class ModelItem {
     /**
      * @return the image
      */
-    public Icon getImage() {
+    public ImageIcon getImage() {
         return image;
     }
 
     /**
      * @param image the image to set
      */
-    public void setImage(Icon image) {
+    public void setImage(ImageIcon image) {
         this.image = image;
     }
 

@@ -4,7 +4,14 @@
  */
 package com.snapshop.form;
 
+import com.snapshop.controller.PlatformController;
+import com.snapshop.event.AddToCartListener;
 import com.snapshop.model.ModelItem;
+import com.snapshop.util.DatabaseConnection;
+import java.sql.Connection; // Add this import
+import java.sql.PreparedStatement; // Add this import
+import java.sql.ResultSet; // Add this import
+import java.sql.SQLException; // Add this import
 import java.text.DecimalFormat;
 
 /**
@@ -14,12 +21,18 @@ import java.text.DecimalFormat;
 public class SelectedItem extends javax.swing.JPanel {
 
     private ModelItem data;
+    private AddToCartListener listener;
+    private PlatformController controller;
+    private int cartId;
 
     /**
      * Creates new form SelectedItem
      */
-    public SelectedItem() {
+    public SelectedItem(AddToCartListener listener) {
+        this.listener = listener;
         initComponents();
+        controller = PlatformController.getInstance();
+        cartId = controller.getCartId();
     }
 
     public ModelItem getData() {
@@ -35,6 +48,45 @@ public class SelectedItem extends javax.swing.JPanel {
         lbPrice.setText(df.format(data.getPrice()));
         pics.setImage(data.getImage());
         pics.repaint();
+
+        // Fetch quantity from the database using cartId and itemId
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+            String query = "SELECT quantity FROM cart_items WHERE cartId = ? AND itemId = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, cartId);
+            statement.setInt(2, data.getItemId());
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int quantity = resultSet.getInt("quantity");
+                quantityInput.setText(String.valueOf(quantity));
+            } else {
+                quantityInput.setText("0"); // Default to 0 if no quantity is found
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error fetching item quantity: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            quantityInput.setText("0"); // Default to 0 on error
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -58,7 +110,7 @@ public class SelectedItem extends javax.swing.JPanel {
         quantityInput = new javax.swing.JTextField();
         increaseBtn = new javax.swing.JButton();
         decreaseBtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        addToCartBtn = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
@@ -128,7 +180,12 @@ public class SelectedItem extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("ADD TO CART");
+        addToCartBtn.setText("ADD TO CART");
+        addToCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToCartBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,7 +195,7 @@ public class SelectedItem extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addToCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,7 +250,7 @@ public class SelectedItem extends javax.swing.JPanel {
                     .addComponent(increaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(decreaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addToCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -252,11 +309,28 @@ public class SelectedItem extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_decreaseBtnActionPerformed
 
+    private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed
+        // TODO add your handling code here:
+        try {
+            int quantity = Integer.parseInt(quantityInput.getText());
+
+            if (quantity <= 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Quantity must be greater than 0.", "Warning", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            listener.onAddToCart(data, quantity); // Notify the listener
+            quantityInput.setText("0");
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Invalid quantity. Please enter a valid number.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_addToCartBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addToCartBtn;
     private javax.swing.JButton decreaseBtn;
     private javax.swing.JButton increaseBtn;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;

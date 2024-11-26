@@ -5,8 +5,14 @@
 package com.snapshop.main;
 
 import com.snapshop.controller.PlatformController;
+import com.snapshop.event.AddToCartListener;
 import com.snapshop.event.EventItem;
+import com.snapshop.event.ShowCartListener;
 import com.snapshop.form.FormHome;
+import com.snapshop.form.HomeHeader;
+import com.snapshop.form.MyCart;
+import com.snapshop.model.Cart;
+import com.snapshop.model.Customer;
 import com.snapshop.model.ModelItem;
 import com.snapshop.model.User;
 import java.awt.BorderLayout;
@@ -18,30 +24,81 @@ import java.util.List;
  *
  * @author lucas
  */
-public class Dashboard extends javax.swing.JFrame {
+public class Dashboard extends javax.swing.JFrame implements AddToCartListener, ShowCartListener {
 
     private PlatformController controller;
     private User currentUser;
     private FormHome home;
+    private HomeHeader homehd;
     private ModelItem itemSelected;
+    private Cart cart;
+    private MyCart myCart;
+
+    private int customerId;
+    private int cartId;
 
     /**
      * Creates new form Dashboard
      */
-    public Dashboard(PlatformController controller) {
+    public Dashboard() {
         initComponents();
-        this.controller = controller;
-        currentUser = controller.getCurrentMember();
+        controller = PlatformController.getInstance();
+        currentUser = (Customer)controller.getCurrentUser();
         setBackground(new Color(0, 0, 0, 0));
+
+        Customer currentCustomer = (Customer)currentUser;
+        customerId = currentCustomer.getCustomerId();
+        cartId = controller.getCartId();
         init();
     }
 
+    @Override
+    public void onAddToCart(ModelItem item, int quantity) {
+        if (item.getInventory() < quantity) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Not enough inventory available.", "Warning", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        cart.addItem(item, quantity);
+        javax.swing.JOptionPane.showMessageDialog(this, "Item added to cart successfully!", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void showCartPanel() {
+        // Remove current panel and show MyCart panel
+        System.out.println("Switching to MyCart panel...");
+        mainPanel.removeAll();
+        myCart = new MyCart();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(myCart);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+
+    @Override
+    public void showHomePanel() {
+        System.out.println("Switching to Home panel...");
+        mainPanel.removeAll();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(home); // Add the FormHome panel back
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+
     private void init() {
-        home = new FormHome();
-        winButton.initEvent(this, background1);
+        // set headerPanel for customer
+        homehd = new HomeHeader(this, background1);
+        homehd.setShowCartListener(this);
+        headerPanel.setLayout(new BorderLayout());
+        headerPanel.add(homehd);
+        // set mainPanel for customer
+        home = new FormHome(this);
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(home);
+
+        // load product data
         loadData();
+        // For storing added items
+        cart = new Cart(customerId, cartId);
     }
 
     private void loadData() {
@@ -52,15 +109,6 @@ public class Dashboard extends javax.swing.JFrame {
                 home.showItem(item);
             }
         });
-//        int ID = 1;
-//        for (int i = 0; i <= 5; i++) {
-//            home.addItem(new ModelItem(ID++, "4DFWD PULSE", "This product is excluded from all promotional discounts and offers.", "Shoe", 160, "Adidas", new ImageIcon(getClass().getResource("/com/snapshop/image/img1.png"))));
-//            home.addItem(new ModelItem(ID++, "FORUM MID", "This product is excluded from all promotional discounts and offers.", "Shoe", 100, "Adidas", new ImageIcon(getClass().getResource("/com/snapshop/image/img2.png"))));
-//            home.addItem(new ModelItem(ID++, "SUPERNOVA", "NMD City Stock 2", "Shoe", 150, "Adidas", new ImageIcon(getClass().getResource("/com/snapshop/image/img3.png"))));
-//            home.addItem(new ModelItem(ID++, "Adidas", "NMD City Stock 2", "Shoe", 160, "Adidas", new ImageIcon(getClass().getResource("/com/snapshop/image/img4.png"))));
-//            home.addItem(new ModelItem(ID++, "Adidas", "NMD City Stock 2", "Shoe", 120, "Adidas", new ImageIcon(getClass().getResource("/com/snapshop/image/img5.png"))));
-//            home.addItem(new ModelItem(ID++, "4DFWD PULSE", "This product is excluded from all promotional discounts and offers.", "Shoe", 160, "Adidas", new ImageIcon(getClass().getResource("/com/snapshop/image/img6.png"))));
-//        }
         List<ModelItem> items = controller.getAllItems();
 
         for (ModelItem item : items) {
@@ -78,39 +126,23 @@ public class Dashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         background1 = new com.snapshop.swing.Background();
-        header = new javax.swing.JPanel();
-        winButton = new com.snapshop.swing.win_button.WinButton();
-        jLabel1 = new javax.swing.JLabel();
+        headerPanel = new javax.swing.JPanel();
         mainPanel = new com.snapshop.swing.MainPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        header.setOpaque(false);
+        headerPanel.setOpaque(false);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("SNAPSHOP MENUBAR");
-
-        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
-        header.setLayout(headerLayout);
-        headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(winButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(headerLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addGap(0, 606, Short.MAX_VALUE))
+        javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
+        headerPanel.setLayout(headerPanelLayout);
+        headerPanelLayout.setHorizontalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1038, Short.MAX_VALUE)
         );
-        headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addComponent(winButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap())
+        headerPanelLayout.setVerticalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -131,7 +163,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(background1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -139,7 +171,7 @@ public class Dashboard extends javax.swing.JFrame {
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(background1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -197,9 +229,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.snapshop.swing.Background background1;
-    private javax.swing.JPanel header;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel headerPanel;
     private com.snapshop.swing.MainPanel mainPanel;
-    private com.snapshop.swing.win_button.WinButton winButton;
     // End of variables declaration//GEN-END:variables
 }
