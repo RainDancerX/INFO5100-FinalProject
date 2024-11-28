@@ -5,6 +5,7 @@
 package com.snapshop.form;
 
 import com.snapshop.controller.PlatformController;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -13,6 +14,9 @@ import com.snapshop.controller.PlatformController;
 public class Associate extends javax.swing.JFrame {
 
     private PlatformController controller;
+    private InventoryMgm invMgm;
+    private CouponMgm couponMgm;
+    private OrderMgm orderMgm;
 
     /**
      * Creates new form Associate
@@ -20,6 +24,25 @@ public class Associate extends javax.swing.JFrame {
     public Associate(PlatformController controller) {
         initComponents();
         this.controller = controller;
+        init();
+    }
+
+    private void init() {
+        // Initialize and set up panels
+        invMgm = new InventoryMgm();
+        couponMgm = new CouponMgm();
+        orderMgm = new OrderMgm();
+
+        // Set default panel (Customer Management)
+        switchToPanel(invMgm);
+    }
+
+    private void switchToPanel(javax.swing.JPanel panel) {
+        associateMainPanel.removeAll(); // Clear current panel
+        associateMainPanel.setLayout(new BorderLayout());
+        associateMainPanel.add(panel, BorderLayout.CENTER); // Add new panel
+        associateMainPanel.revalidate(); // Refresh the panel
+        associateMainPanel.repaint();   // Ensure proper display
     }
 
     /**
@@ -33,15 +56,87 @@ public class Associate extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        ordersBtn = new javax.swing.JButton();
+        couponBtn = new javax.swing.JButton();
+        userIconBtn = new javax.swing.JButton();
+        associateMainPanel = new javax.swing.JPanel();
+        inventoryBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel1.setText("Associate");
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText("Associate Portal");
+
+        ordersBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        ordersBtn.setForeground(new java.awt.Color(102, 102, 102));
+        ordersBtn.setText("Orders");
+        ordersBtn.setBorder(null);
+        ordersBtn.setBorderPainted(false);
+        ordersBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ordersBtn.setFocusPainted(false);
+        ordersBtn.setFocusable(false);
+        ordersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordersBtnActionPerformed(evt);
+            }
+        });
+
+        couponBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        couponBtn.setForeground(new java.awt.Color(102, 102, 102));
+        couponBtn.setText("Coupon");
+        couponBtn.setBorder(null);
+        couponBtn.setBorderPainted(false);
+        couponBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        couponBtn.setFocusPainted(false);
+        couponBtn.setFocusable(false);
+        couponBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                couponBtnActionPerformed(evt);
+            }
+        });
+
+        userIconBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/snapshop/icon/user_icon.png"))); // NOI18N
+        userIconBtn.setBorder(null);
+        userIconBtn.setBorderPainted(false);
+        userIconBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userIconBtn.setFocusPainted(false);
+        userIconBtn.setFocusable(false);
+        userIconBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userIconBtnActionPerformed(evt);
+            }
+        });
+
+        associateMainPanel.setOpaque(false);
+
+        javax.swing.GroupLayout associateMainPanelLayout = new javax.swing.GroupLayout(associateMainPanel);
+        associateMainPanel.setLayout(associateMainPanelLayout);
+        associateMainPanelLayout.setHorizontalGroup(
+            associateMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        associateMainPanelLayout.setVerticalGroup(
+            associateMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 437, Short.MAX_VALUE)
+        );
+
+        inventoryBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        inventoryBtn.setForeground(new java.awt.Color(102, 102, 102));
+        inventoryBtn.setText("Inventory");
+        inventoryBtn.setBorder(null);
+        inventoryBtn.setBorderPainted(false);
+        inventoryBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        inventoryBtn.setFocusPainted(false);
+        inventoryBtn.setFocusable(false);
+        inventoryBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventoryBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -49,38 +144,103 @@ public class Associate extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(638, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(associateMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(38, 38, 38)
+                        .addComponent(inventoryBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(couponBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(ordersBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                        .addComponent(userIconBtn)
+                        .addGap(19, 19, 19))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(450, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(ordersBtn)
+                            .addComponent(couponBtn)
+                            .addComponent(inventoryBtn)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(userIconBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(associateMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void userIconBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIconBtnActionPerformed
+        // TODO add your handling code here:
+        // Confirm logout
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to log out?",
+                "Logout",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            // Clear the current user session
+            controller.setCurrentUser(null);
+
+            // Show the login frame
+            Login loginFrame = new Login();
+            loginFrame.setVisible(true);
+            loginFrame.pack();
+            loginFrame.setLocationRelativeTo(null);
+
+            // Close the current JFrame (Dashboard or other)
+            this.dispose();
+        }
+    }//GEN-LAST:event_userIconBtnActionPerformed
+
+    private void inventoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryBtnActionPerformed
+        // TODO add your handling code here:
+        switchToPanel(invMgm);
+    }//GEN-LAST:event_inventoryBtnActionPerformed
+
+    private void couponBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_couponBtnActionPerformed
+        // TODO add your handling code here:
+        switchToPanel(couponMgm);
+    }//GEN-LAST:event_couponBtnActionPerformed
+
+    private void ordersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersBtnActionPerformed
+        // TODO add your handling code here:
+        switchToPanel(orderMgm);
+    }//GEN-LAST:event_ordersBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel associateMainPanel;
+    private javax.swing.JButton couponBtn;
+    private javax.swing.JButton inventoryBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton ordersBtn;
+    private javax.swing.JButton userIconBtn;
     // End of variables declaration//GEN-END:variables
 }

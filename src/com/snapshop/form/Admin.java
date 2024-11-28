@@ -5,14 +5,18 @@
 package com.snapshop.form;
 
 import com.snapshop.controller.PlatformController;
-
+import java.awt.BorderLayout;
 /**
  *
  * @author lucas
  */
 public class Admin extends javax.swing.JFrame {
-    
+
+    private CustomerMgm customPanel;
+    private AssociateMgm assPanel;
     private PlatformController controller;
+
+    ;
 
     /**
      * Creates new form admin
@@ -20,6 +24,24 @@ public class Admin extends javax.swing.JFrame {
     public Admin(PlatformController controller) {
         initComponents();
         this.controller = controller;
+        init();
+    }
+
+    private void init() {
+        // Initialize and set up panels
+        customPanel = new CustomerMgm();
+        assPanel = new AssociateMgm();
+
+        // Set default panel (Customer Management)
+        switchToPanel(customPanel);
+    }
+
+    private void switchToPanel(javax.swing.JPanel panel) {
+        adminMainPanel.removeAll(); // Clear current panel
+        adminMainPanel.setLayout(new BorderLayout());
+        adminMainPanel.add(panel, BorderLayout.CENTER); // Add new panel
+        adminMainPanel.revalidate(); // Refresh the panel
+        adminMainPanel.repaint();   // Ensure proper display
     }
 
     /**
@@ -33,15 +55,72 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        adminMainPanel = new javax.swing.JPanel();
+        customerMgm = new javax.swing.JButton();
+        associateMgm = new javax.swing.JButton();
+        userIconBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel1.setText("admin");
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText("Administration Portal");
+
+        adminMainPanel.setOpaque(false);
+
+        javax.swing.GroupLayout adminMainPanelLayout = new javax.swing.GroupLayout(adminMainPanel);
+        adminMainPanel.setLayout(adminMainPanelLayout);
+        adminMainPanelLayout.setHorizontalGroup(
+            adminMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        adminMainPanelLayout.setVerticalGroup(
+            adminMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 436, Short.MAX_VALUE)
+        );
+
+        customerMgm.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        customerMgm.setForeground(new java.awt.Color(102, 102, 102));
+        customerMgm.setText("Customer");
+        customerMgm.setBorder(null);
+        customerMgm.setBorderPainted(false);
+        customerMgm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        customerMgm.setFocusPainted(false);
+        customerMgm.setFocusable(false);
+        customerMgm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerMgmActionPerformed(evt);
+            }
+        });
+
+        associateMgm.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        associateMgm.setForeground(new java.awt.Color(102, 102, 102));
+        associateMgm.setText("Associate");
+        associateMgm.setBorder(null);
+        associateMgm.setBorderPainted(false);
+        associateMgm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        associateMgm.setFocusPainted(false);
+        associateMgm.setFocusable(false);
+        associateMgm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                associateMgmActionPerformed(evt);
+            }
+        });
+
+        userIconBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/snapshop/icon/user_icon.png"))); // NOI18N
+        userIconBtn.setBorder(null);
+        userIconBtn.setBorderPainted(false);
+        userIconBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userIconBtn.setFocusPainted(false);
+        userIconBtn.setFocusable(false);
+        userIconBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userIconBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -49,39 +128,93 @@ public class Admin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(695, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(adminMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(30, 30, 30)
+                        .addComponent(customerMgm)
+                        .addGap(18, 18, 18)
+                        .addComponent(associateMgm)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                        .addComponent(userIconBtn)
+                        .addGap(23, 23, 23))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1)
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(userIconBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(customerMgm)
+                        .addComponent(associateMgm)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adminMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void customerMgmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerMgmActionPerformed
+        // TODO add your handling code here:
+        switchToPanel(customPanel); // Switch to CustomerMgm panel
+    }//GEN-LAST:event_customerMgmActionPerformed
+
+    private void associateMgmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_associateMgmActionPerformed
+        // TODO add your handling code here:
+        switchToPanel(assPanel); // Switch to AssociateMgm panel
+    }//GEN-LAST:event_associateMgmActionPerformed
+
+    private void userIconBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIconBtnActionPerformed
+        // TODO add your handling code here:
+        // Confirm logout
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to log out?",
+                "Logout",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            // Clear the current user session
+            controller.setCurrentUser(null);
+
+            // Show the login frame
+            Login loginFrame = new Login();
+            loginFrame.setVisible(true);
+            loginFrame.pack();
+            loginFrame.setLocationRelativeTo(null);
+
+            // Close the current JFrame (Dashboard or other)
+            this.dispose();
+        }
+    }//GEN-LAST:event_userIconBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel adminMainPanel;
+    private javax.swing.JButton associateMgm;
+    private javax.swing.JButton customerMgm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton userIconBtn;
     // End of variables declaration//GEN-END:variables
 }

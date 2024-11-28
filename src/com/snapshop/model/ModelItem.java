@@ -4,7 +4,6 @@
  */
 package com.snapshop.model;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -47,7 +46,7 @@ public class ModelItem {
         return inventory;
     }
 
-    public void setInventory() {
+    public void setInventory(int inventory) {
         this.inventory = inventory;
     }
 

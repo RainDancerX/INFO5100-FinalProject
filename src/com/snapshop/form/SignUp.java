@@ -39,8 +39,6 @@ public class SignUp extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        staffButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -70,23 +68,6 @@ public class SignUp extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Snapshop");
 
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Admin & Associate sign up here");
-
-        staffButton.setBackground(new java.awt.Color(0, 102, 102));
-        staffButton.setForeground(new java.awt.Color(255, 0, 51));
-        staffButton.setText("Sign Up");
-        staffButton.setBorderPainted(false);
-        staffButton.setContentAreaFilled(false);
-        staffButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        staffButton.setFocusPainted(false);
-        staffButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        staffButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                staffButtonActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("SignPainter", 1, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("New Customer Sign up");
@@ -101,12 +82,8 @@ public class SignUp extends javax.swing.JFrame {
                         .addGap(69, 69, 69)
                         .addComponent(jLabel9))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(staffButton)))
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel6)))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,11 +93,7 @@ public class SignUp extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addGap(155, 155, 155)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(staffButton, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel1);
@@ -353,15 +326,6 @@ public class SignUp extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_signupButtonActionPerformed
 
-    private void staffButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffButtonActionPerformed
-        // TODO add your handling code here:
-        StaffSignup staffFrame = new StaffSignup();
-        staffFrame.setVisible(true);
-        staffFrame.pack();
-        staffFrame.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_staffButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressInput;
@@ -372,7 +336,6 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -382,7 +345,6 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField phoneInput;
     private javax.swing.JPasswordField pwdInput;
     private javax.swing.JButton signupButton;
-    private javax.swing.JButton staffButton;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
 }

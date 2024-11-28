@@ -4,9 +4,15 @@
  */
 package com.snapshop.form;
 
-import com.snapshop.event.ShowCartListener;
+import com.snapshop.controller.PlatformController;
 import com.snapshop.swing.Background;
 import javax.swing.JFrame;
+import com.snapshop.event.SwitchMainPanelListener;
+import com.snapshop.main.Dashboard;
+import com.snapshop.model.Customer;
+import com.snapshop.model.Order;
+import java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -15,20 +21,35 @@ import javax.swing.JFrame;
 public class HomeHeader extends javax.swing.JPanel {
 
     private MyCart cart;
-    private ShowCartListener listener;
+    private SwitchMainPanelListener listener;
+    private PlatformController controller;
+    private Customer customer;
 
     /**
      * Creates new form HomeHeader
      */
     public HomeHeader(JFrame fram, Background bg) {
         initComponents();
+        controller = PlatformController.getInstance();
         winButton3.initEvent(fram, bg);
+        customer = (Customer) controller.getCurrentUser();
     }
 
-    public void setShowCartListener(ShowCartListener listener) {
+    public void setMainPanelListener(SwitchMainPanelListener listener) {
         this.listener = listener;
     }
 
+//    private void resetButtonStyles() {
+//        // Reset the styles for all buttons
+//        femaleBtn.setBackground(null);
+//        femaleBtn.setForeground(new java.awt.Color(102, 102, 102));
+//
+//        maleBtn.setBackground(null);
+//        maleBtn.setForeground(new java.awt.Color(102, 102, 102));
+//
+//        kidsBtn.setBackground(null);
+//        kidsBtn.setForeground(new java.awt.Color(102, 102, 102));
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,29 +59,126 @@ public class HomeHeader extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
         winButton3 = new com.snapshop.swing.win_button.WinButton();
         myCartBtn = new javax.swing.JButton();
-        backBtn = new javax.swing.JButton();
+        HomeBtn = new javax.swing.JButton();
+        myOrdersBtn = new javax.swing.JButton();
+        userIconBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
+        femaleBtn = new javax.swing.JButton();
+        maleBtn = new javax.swing.JButton();
+        kidsBtn = new javax.swing.JButton();
 
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1038, 75));
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("SNAPSHOP MENUBAR");
-
-        myCartBtn.setText("MY CART");
+        myCartBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        myCartBtn.setForeground(new java.awt.Color(102, 102, 102));
+        myCartBtn.setText("CART");
+        myCartBtn.setBorder(null);
+        myCartBtn.setBorderPainted(false);
+        myCartBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        myCartBtn.setFocusPainted(false);
+        myCartBtn.setFocusable(false);
         myCartBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myCartBtnActionPerformed(evt);
             }
         });
 
-        backBtn.setText("Back");
-        backBtn.addActionListener(new java.awt.event.ActionListener() {
+        HomeBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        HomeBtn.setForeground(new java.awt.Color(102, 102, 102));
+        HomeBtn.setText("SNAPSHOP ");
+        HomeBtn.setBorder(null);
+        HomeBtn.setBorderPainted(false);
+        HomeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        HomeBtn.setFocusPainted(false);
+        HomeBtn.setFocusable(false);
+        HomeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtnActionPerformed(evt);
+                HomeBtnActionPerformed(evt);
+            }
+        });
+
+        myOrdersBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        myOrdersBtn.setForeground(new java.awt.Color(102, 102, 102));
+        myOrdersBtn.setText("ORDERS");
+        myOrdersBtn.setBorder(null);
+        myOrdersBtn.setBorderPainted(false);
+        myOrdersBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        myOrdersBtn.setFocusPainted(false);
+        myOrdersBtn.setFocusable(false);
+        myOrdersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myOrdersBtnActionPerformed(evt);
+            }
+        });
+
+        userIconBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/snapshop/icon/user_icon.png"))); // NOI18N
+        userIconBtn.setBorder(null);
+        userIconBtn.setBorderPainted(false);
+        userIconBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userIconBtn.setFocusPainted(false);
+        userIconBtn.setFocusable(false);
+        userIconBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userIconBtnActionPerformed(evt);
+            }
+        });
+
+        logoutBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        logoutBtn.setForeground(new java.awt.Color(102, 102, 102));
+        logoutBtn.setText("LOGOUT");
+        logoutBtn.setBorder(null);
+        logoutBtn.setBorderPainted(false);
+        logoutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutBtn.setFocusPainted(false);
+        logoutBtn.setFocusable(false);
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
+        femaleBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        femaleBtn.setForeground(new java.awt.Color(102, 102, 102));
+        femaleBtn.setText("Women");
+        femaleBtn.setBorder(null);
+        femaleBtn.setBorderPainted(false);
+        femaleBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        femaleBtn.setFocusPainted(false);
+        femaleBtn.setFocusable(false);
+        femaleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                femaleBtnActionPerformed(evt);
+            }
+        });
+
+        maleBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        maleBtn.setForeground(new java.awt.Color(102, 102, 102));
+        maleBtn.setText("Men");
+        maleBtn.setBorder(null);
+        maleBtn.setBorderPainted(false);
+        maleBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        maleBtn.setFocusPainted(false);
+        maleBtn.setFocusable(false);
+        maleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maleBtnActionPerformed(evt);
+            }
+        });
+
+        kidsBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        kidsBtn.setForeground(new java.awt.Color(102, 102, 102));
+        kidsBtn.setText("Kids");
+        kidsBtn.setBorder(null);
+        kidsBtn.setBorderPainted(false);
+        kidsBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        kidsBtn.setFocusPainted(false);
+        kidsBtn.setFocusable(false);
+        kidsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kidsBtnActionPerformed(evt);
             }
         });
 
@@ -68,28 +186,49 @@ public class HomeHeader extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(winButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
-                .addComponent(backBtn)
-                .addGap(28, 28, 28)
-                .addComponent(myCartBtn)
-                .addGap(56, 56, 56))
+                .addContainerGap()
+                .addComponent(HomeBtn)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(winButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(femaleBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(maleBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(kidsBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
+                        .addComponent(myOrdersBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(myCartBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(logoutBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(userIconBtn)
+                        .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(winButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(myCartBtn)
-                        .addComponent(backBtn)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(winButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(userIconBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(myCartBtn)
+                                .addComponent(myOrdersBtn)
+                                .addComponent(logoutBtn)
+                                .addComponent(femaleBtn)
+                                .addComponent(maleBtn)
+                                .addComponent(kidsBtn)))
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(HomeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -103,26 +242,189 @@ public class HomeHeader extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_myCartBtnActionPerformed
 
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+    private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
+        if (listener != null) {
+            // Ensure FormHome is displayed
+            listener.showHomePanel();
+            Dashboard dashboard = (Dashboard) SwingUtilities.getWindowAncestor(this);
+            if (dashboard != null) {
+                // Add a getter in Dashboard for FormHome
+                FormHome formHome = dashboard.getHome();
+                if (formHome != null) {
+                    formHome.showAllItems();
+                } else {
+                    System.out.println("FormHome is null when accessed from HomeHeader");
+                }
+            } else {
+                System.out.println("Dashboard is null when accessed from HomeHeader");
+            }
+        }
+    }//GEN-LAST:event_HomeBtnActionPerformed
+
+    private void myOrdersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myOrdersBtnActionPerformed
         // TODO add your handling code here:
         if (listener != null) {
-            listener.showHomePanel();
+            listener.showMyOrdersPanel();
         } else {
             System.err.println("ShowCartListener is not set in HomeHeader.");
         }
-    }//GEN-LAST:event_backBtnActionPerformed
+    }//GEN-LAST:event_myOrdersBtnActionPerformed
+
+    private void userIconBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIconBtnActionPerformed
+        // TODO add your handling code here:
+        if (customer == null) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Customer information is not available.",
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Determine customer type based on age
+        String customerType = (customer.getAge() >= 18) ? "Adult" : "Underage";
+
+        // Fetch customer's orders
+        List<Order> orders = Order.getOrdersByCustomerId(customer.getCustomerId());
+        int totalOrders = orders.size();
+
+        // Create a breakdown of order statuses
+        StringBuilder statusBreakdown = new StringBuilder();
+        orders.stream()
+                .map(Order::getStatus)
+                .distinct()
+                .forEach(status -> {
+                    long count = orders.stream()
+                            .filter(order -> order.getStatus().equals(status))
+                            .count();
+                    statusBreakdown.append(status).append(": ").append(count).append("\n");
+                });
+
+        // Build customer info message
+        StringBuilder message = new StringBuilder();
+        message.append("Customer Name: ").append(customer.getUsername()).append("\n")
+                .append("Address: ").append(customer.getAddress()).append("\n")
+                .append("Phone: ").append(customer.getPhone()).append("\n")
+                .append("Customer Type: ").append(customerType).append("\n")
+                .append("Number of Orders: ").append(totalOrders).append("\n")
+                .append("Order Status:\n")
+                .append(statusBreakdown);
+
+        // Display customer info
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                message.toString(),
+                "Customer Info",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_userIconBtnActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        // TODO add your handling code here:
+        // Confirm logout
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to log out?",
+                "Logout",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            // Clear the current user session
+            controller.setCurrentUser(null);
+
+            // Show the login frame
+            Login loginFrame = new Login();
+            loginFrame.setVisible(true);
+            loginFrame.pack();
+            loginFrame.setLocationRelativeTo(null);
+
+            // Close the current JFrame (Dashboard or other)
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            if (parentFrame != null) {
+                parentFrame.dispose();
+            }
+        }
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void femaleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femaleBtnActionPerformed
+        // TODO add your handling code here:
+        // Reset styles
+//        resetButtonStyles(); 
+//        femaleBtn.setBackground(new java.awt.Color(255, 182, 193));
+//        femaleBtn.setForeground(new java.awt.Color(225, 176, 101));
+
+        if (listener != null) {
+            listener.showHomePanel();
+            Dashboard dashboard = (Dashboard) SwingUtilities.getWindowAncestor(this);
+            if (dashboard != null) {
+                FormHome formHome = dashboard.getHome();
+                if (formHome != null) {
+                    formHome.filterItems("gender", "Female");
+                } else {
+                    System.out.println("FormHome is null when accessed from HomeHeader");
+                }
+            } else {
+                System.out.println("Dashboard is null when accessed from HomeHeader");
+            }
+        }
+    }//GEN-LAST:event_femaleBtnActionPerformed
+
+    private void maleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleBtnActionPerformed
+        // TODO add your handling code here:
+        // Reset styles
+//        resetButtonStyles();
+//        maleBtn.setBackground(new java.awt.Color(135, 206, 250));
+//        maleBtn.setForeground(new java.awt.Color(225, 176, 101));
+        if (listener != null) {
+            listener.showHomePanel();
+            Dashboard dashboard = (Dashboard) SwingUtilities.getWindowAncestor(this);
+            if (dashboard != null) {
+                FormHome formHome = dashboard.getHome();
+                if (formHome != null) {
+                    formHome.filterItems("gender", "Male");
+                } else {
+                    System.out.println("FormHome is null when accessed from HomeHeader");
+                }
+            } else {
+                System.out.println("Dashboard is null when accessed from HomeHeader");
+            }
+        }
+    }//GEN-LAST:event_maleBtnActionPerformed
+
+    private void kidsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kidsBtnActionPerformed
+        // TODO add your handling code here:
+        // Reset styles
+//        resetButtonStyles();
+//        kidsBtn.setBackground(new java.awt.Color(144, 238, 144)); 
+//        kidsBtn.setForeground(new java.awt.Color(225, 176, 101));
+        if (listener != null) {
+            listener.showHomePanel();
+            Dashboard dashboard = (Dashboard) SwingUtilities.getWindowAncestor(this);
+            if (dashboard != null) {
+                FormHome formHome = dashboard.getHome();
+                if (formHome != null) {
+                    formHome.filterItems("category", "kids");
+                } else {
+                    System.out.println("FormHome is null when accessed from HomeHeader");
+                }
+            } else {
+                System.out.println("Dashboard is null when accessed from HomeHeader");
+            }
+        }
+    }//GEN-LAST:event_kidsBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JPanel header;
-    private javax.swing.JPanel header1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton HomeBtn;
+    private javax.swing.JButton femaleBtn;
+    private javax.swing.JButton kidsBtn;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton maleBtn;
     private javax.swing.JButton myCartBtn;
-    private com.snapshop.swing.win_button.WinButton winButton;
-    private com.snapshop.swing.win_button.WinButton winButton1;
+    private javax.swing.JButton myOrdersBtn;
+    private javax.swing.JButton userIconBtn;
     private com.snapshop.swing.win_button.WinButton winButton3;
     // End of variables declaration//GEN-END:variables
 }

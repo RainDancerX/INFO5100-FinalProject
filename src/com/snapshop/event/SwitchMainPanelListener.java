@@ -8,7 +8,8 @@ package com.snapshop.event;
  *
  * @author lucas
  */
-public interface ShowCartListener {
+public interface SwitchMainPanelListener {
     void showCartPanel();
     void showHomePanel();
+    void showMyOrdersPanel();
 }

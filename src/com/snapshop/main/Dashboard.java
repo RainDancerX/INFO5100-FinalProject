@@ -6,11 +6,13 @@ package com.snapshop.main;
 
 import com.snapshop.controller.PlatformController;
 import com.snapshop.event.AddToCartListener;
+import com.snapshop.event.CheckoutListener;
 import com.snapshop.event.EventItem;
-import com.snapshop.event.ShowCartListener;
+import com.snapshop.form.FormCheckout;
 import com.snapshop.form.FormHome;
 import com.snapshop.form.HomeHeader;
 import com.snapshop.form.MyCart;
+import com.snapshop.form.MyOrders;
 import com.snapshop.model.Cart;
 import com.snapshop.model.Customer;
 import com.snapshop.model.ModelItem;
@@ -19,12 +21,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
+import com.snapshop.event.SwitchMainPanelListener;
 
 /**
  *
  * @author lucas
  */
-public class Dashboard extends javax.swing.JFrame implements AddToCartListener, ShowCartListener {
+public class Dashboard extends javax.swing.JFrame implements AddToCartListener, SwitchMainPanelListener, CheckoutListener {
 
     private PlatformController controller;
     private User currentUser;
@@ -33,6 +36,7 @@ public class Dashboard extends javax.swing.JFrame implements AddToCartListener, 
     private ModelItem itemSelected;
     private Cart cart;
     private MyCart myCart;
+    private MyOrders myOrders;
 
     private int customerId;
     private int cartId;
@@ -43,10 +47,10 @@ public class Dashboard extends javax.swing.JFrame implements AddToCartListener, 
     public Dashboard() {
         initComponents();
         controller = PlatformController.getInstance();
-        currentUser = (Customer)controller.getCurrentUser();
+        currentUser = (Customer) controller.getCurrentUser();
         setBackground(new Color(0, 0, 0, 0));
 
-        Customer currentCustomer = (Customer)currentUser;
+        Customer currentCustomer = (Customer) currentUser;
         customerId = currentCustomer.getCustomerId();
         cartId = controller.getCartId();
         init();
@@ -54,12 +58,37 @@ public class Dashboard extends javax.swing.JFrame implements AddToCartListener, 
 
     @Override
     public void onAddToCart(ModelItem item, int quantity) {
-        if (item.getInventory() < quantity) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Not enough inventory available.", "Warning", javax.swing.JOptionPane.WARNING_MESSAGE);
+        // Fetch the latest inventory from the database
+        int latestInventory = controller.fetchLatestInventory(item.getItemId());
+
+        if (latestInventory < quantity) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Not enough inventory available. Current inventory: " + latestInventory,
+                    "Warning",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
+
+        // Update the item's inventory to the latest value
+        item.setInventory(latestInventory);
+
+        // Proceed to add the item to the cart
         cart.addItem(item, quantity);
-        javax.swing.JOptionPane.showMessageDialog(this, "Item added to cart successfully!", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Item added to cart successfully!",
+                "Success",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void onCheckout() {
+        mainPanel.removeAll(); // Remove all components from mainPanel
+        FormCheckout checkoutPanel = new FormCheckout(); // Create the FormCheckout instance
+        mainPanel.setLayout(new BorderLayout()); // Set the layout for the panel
+        mainPanel.add(checkoutPanel); // Add the new FormCheckout panel
+        mainPanel.revalidate(); // Revalidate the panel to refresh the layout
+        mainPanel.repaint(); // Repaint the panel to reflect changes
     }
 
     @Override
@@ -67,9 +96,21 @@ public class Dashboard extends javax.swing.JFrame implements AddToCartListener, 
         // Remove current panel and show MyCart panel
         System.out.println("Switching to MyCart panel...");
         mainPanel.removeAll();
-        myCart = new MyCart();
+        myCart = new MyCart(this);
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(myCart);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+
+    @Override
+    public void showMyOrdersPanel() {
+        // Remove current panel and show MyCart panel
+        System.out.println("Switching to MyCart panel...");
+        mainPanel.removeAll();
+        myOrders = new MyOrders();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(myOrders);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -87,7 +128,7 @@ public class Dashboard extends javax.swing.JFrame implements AddToCartListener, 
     private void init() {
         // set headerPanel for customer
         homehd = new HomeHeader(this, background1);
-        homehd.setShowCartListener(this);
+        homehd.setMainPanelListener(this);
         headerPanel.setLayout(new BorderLayout());
         headerPanel.add(homehd);
         // set mainPanel for customer
@@ -114,6 +155,10 @@ public class Dashboard extends javax.swing.JFrame implements AddToCartListener, 
         for (ModelItem item : items) {
             home.addItem(item);
         }
+    }
+
+    public FormHome getHome() {
+        return home;
     }
 
     /**

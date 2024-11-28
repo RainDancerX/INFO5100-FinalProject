@@ -283,7 +283,11 @@ public class PlatformController {
     public User getCurrentUser() {
         return this.currentUser;
     }
-    
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
     public int getCartId() {
         Customer user = (Customer) currentUser;
         int cartId = -1;
@@ -359,6 +363,82 @@ public class PlatformController {
                         rs.getString("brand"),
                         image
                 // new ImageIcon(getClass().getResource(rs.getString("img"))) // Adjust based on how you store image paths
+                );
+                items.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return items;
+    }
+
+    public int fetchLatestInventory(int itemId) {
+        int inventory = 0;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DatabaseConnection.getConnection();
+            String query = "SELECT inventory FROM item WHERE itemId = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, itemId);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                inventory = resultSet.getInt("inventory");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(null,
+                    "Error fetching the latest inventory: " + e.getMessage(),
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return inventory;
+    }
+
+    public List<ModelItem> getFilteredItems(String column, String value) {
+        List<ModelItem> items = new ArrayList<>();
+        String query = "SELECT * FROM item WHERE " + column + " = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, value);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ImageIcon image;
+                try {
+                    image = new ImageIcon(getClass().getResource(rs.getString("img")));
+                } catch (Exception e) {
+                    image = new ImageIcon(getClass().getResource("/com/snapshop/image/default.png"));
+                }
+                ModelItem item = new ModelItem(
+                        rs.getInt("itemId"),
+                        rs.getString("itemName"),
+                        rs.getString("description"),
+                        rs.getString("category"),
+                        rs.getString("gender"),
+                        rs.getDouble("price"),
+                        rs.getInt("inventory"),
+                        rs.getString("brand"),
+                        image
                 );
                 items.add(item);
             }

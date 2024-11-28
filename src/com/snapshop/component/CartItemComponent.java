@@ -4,6 +4,7 @@
  */
 package com.snapshop.component;
 
+import com.snapshop.form.MyCart;
 import com.snapshop.model.Cart;
 import com.snapshop.model.Cart.CartItem;
 import com.snapshop.model.ModelItem;
@@ -16,14 +17,16 @@ import java.text.DecimalFormat;
 public class CartItemComponent extends javax.swing.JPanel {
 
     private Cart cart;
+    private MyCart myCart;
     private CartItem data;
     private ModelItem item;
 
     /**
      * Creates new form CartItem
      */
-    public CartItemComponent(Cart cart) {
+    public CartItemComponent(Cart cart, MyCart myCart) {
         this.cart = cart;
+        this.myCart = myCart;
         initComponents();
     }
 
@@ -145,7 +148,7 @@ public class CartItemComponent extends javax.swing.JPanel {
         saveBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         saveBtn.setText("Save for later");
 
-        jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
+        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -165,19 +168,20 @@ public class CartItemComponent extends javax.swing.JPanel {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                                .addComponent(decreaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(quantityInput, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(decreaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(quantityInput, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(saveBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(increaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(113, 113, 113)
                                 .addComponent(lbPrice)
                                 .addGap(34, 34, 34)
                                 .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(65, 65, 65))))
+                                .addGap(59, 59, 59))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())))
@@ -187,28 +191,28 @@ public class CartItemComponent extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbItemName)
                             .addComponent(lbBrand))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDescription))
-                    .addComponent(pic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 55, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbPrice)
-                                .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(quantityInput)
-                                    .addComponent(decreaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(increaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(saveBtn)))
-                        .addGap(6, 6, 6)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lbPrice)
+                                        .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(quantityInput)
+                                            .addComponent(decreaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                            .addComponent(increaseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saveBtn)
+                                .addGap(12, 12, 12)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -223,6 +227,7 @@ public class CartItemComponent extends javax.swing.JPanel {
                 quantity--;
                 quantityInput.setText(String.valueOf(quantity));
                 cart.setQuantity(item.getItemId(), quantity); // Update the model
+                myCart.refreshTotalAmount(); // Refresh total amount in MyCart
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Minimum quantity is 1.", "Warning", javax.swing.JOptionPane.WARNING_MESSAGE);
             }
@@ -239,6 +244,7 @@ public class CartItemComponent extends javax.swing.JPanel {
                 quantity++;
                 quantityInput.setText(String.valueOf(quantity));
                 cart.setQuantity(item.getItemId(), quantity); // Update the model
+                myCart.refreshTotalAmount(); // Refresh total amount in MyCart
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Maximum quantity is 10.", "Warning", javax.swing.JOptionPane.WARNING_MESSAGE);
             }
@@ -266,7 +272,6 @@ public class CartItemComponent extends javax.swing.JPanel {
 
                 // Inform the user
 //                javax.swing.JOptionPane.showMessageDialog(this, "Item deleted from the cart.", "Info", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
                 // Remove this component from the parent container
                 java.awt.Container parent = this.getParent();
                 if (parent != null) {
@@ -274,6 +279,7 @@ public class CartItemComponent extends javax.swing.JPanel {
                     parent.revalidate(); // Revalidate the parent to update the layout
                     parent.repaint();    // Repaint the parent to reflect changes
                 }
+                myCart.refreshTotalAmount(); // Refresh total amount in MyCart
 //                this.getParent().remove(this);
 //                this.getParent().revalidate();
 //                this.getParent().repaint();

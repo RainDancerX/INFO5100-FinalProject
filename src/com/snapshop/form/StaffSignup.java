@@ -233,10 +233,15 @@ public class StaffSignup extends javax.swing.JFrame {
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
         // back to login interface
-        Login loginFrame = new Login();
-        loginFrame.setVisible(true);
-        loginFrame.pack();
-        loginFrame.setLocationRelativeTo(null);
+//        Login loginFrame = new Login();
+//        loginFrame.setVisible(true);
+//        loginFrame.pack();
+//        loginFrame.setLocationRelativeTo(null);
+//        this.dispose();
+        Admin admin = new Admin(controller);
+        admin.setVisible(true);
+        admin.pack();
+        admin.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_goBackButtonActionPerformed
 
@@ -286,10 +291,14 @@ public class StaffSignup extends javax.swing.JFrame {
             boolean success = controller.registerStaff(username, password, securityCode, role);
 
             if (success) {
-                Login loginFrame = new Login();
-                loginFrame.setVisible(true);
-                loginFrame.pack();
-                loginFrame.setLocationRelativeTo(null);
+//                Login loginFrame = new Login();
+//                loginFrame.setVisible(true);
+//                loginFrame.pack();
+//                loginFrame.setLocationRelativeTo(null);
+                Admin admin = new Admin(controller);
+                admin.setVisible(true);
+                admin.pack();
+                admin.setLocationRelativeTo(null);
                 this.dispose();
             }
         }

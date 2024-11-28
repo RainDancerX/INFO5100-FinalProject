@@ -21,7 +21,6 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
        controller = PlatformController.getInstance();
-//        this.controller = controller;
         initComponents();
 
         // set Action command for user type radio button
@@ -180,7 +179,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(pwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,9 +188,9 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(LeftLayout.createSequentialGroup()
                                 .addComponent(customerButton)
-                                .addGap(56, 56, 56)
+                                .addGap(31, 31, 31)
                                 .addComponent(adminButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(40, 40, 40)
                                 .addComponent(associateButton))))
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addGap(143, 143, 143)

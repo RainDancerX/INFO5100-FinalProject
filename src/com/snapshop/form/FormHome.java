@@ -1,6 +1,7 @@
 package com.snapshop.form;
 
 import com.snapshop.component.Item;
+import com.snapshop.controller.PlatformController;
 import com.snapshop.event.AddToCartListener;
 import com.snapshop.event.EventItem;
 import com.snapshop.model.ModelItem;
@@ -10,6 +11,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
+import java.util.List;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
@@ -87,6 +89,38 @@ public class FormHome extends javax.swing.JPanel {
         subPanel.repaint();
     }
 
+    public void showAllItems() {
+        panelItem.removeAll(); // Clear all current items
+
+        // Fetch all items from the controller
+        PlatformController controller = PlatformController.getInstance();
+        List<ModelItem> items = controller.getAllItems();
+
+        // Add each item to the UI
+        for (ModelItem item : items) {
+            addItem(item);
+        }
+
+        panelItem.repaint(); // Refresh the UI
+        panelItem.revalidate();
+    }
+
+    public void filterItems(String column, String value) {
+        panelItem.removeAll(); // Clear current items
+
+        // Fetch filtered items from the controller
+        PlatformController controller = PlatformController.getInstance();
+        List<ModelItem> filteredItems = controller.getFilteredItems(column, value);
+
+        // Add each filtered item to the UI
+        for (ModelItem item : filteredItems) {
+            addItem(item);
+        }
+
+        panelItem.repaint(); // Refresh the UI
+        panelItem.revalidate();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,7 +147,7 @@ public class FormHome extends javax.swing.JPanel {
         subPanel.setLayout(subPanelLayout);
         subPanelLayout.setHorizontalGroup(
             subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
+            .addGap(0, 264, Short.MAX_VALUE)
         );
         subPanelLayout.setVerticalGroup(
             subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,16 +162,12 @@ public class FormHome extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(subPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(subPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -121,9 +121,10 @@ public class Cart {
         totalAmount = cartItems.stream()
                 .mapToDouble(cartItem -> cartItem.getItem().getPrice() * cartItem.getQuantity())
                 .sum();
+        updateTotalAmount(); // Update database after recalculating
     }
-    
-    public double getTotalAmount(){
+
+    public double getTotalAmount() {
         return this.totalAmount;
     }
 
@@ -143,15 +144,14 @@ public class Cart {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                // Update quantity
-//                int newQuantity = resultSet.getInt("quantity") + quantity;
+                // If the item exists, update its quantity
                 String updateQuery = "UPDATE cart_items SET quantity = ? WHERE cartId = ? AND itemId = ?";
                 statement = connection.prepareStatement(updateQuery);
                 statement.setInt(1, quantity);
                 statement.setInt(2, this.cartId);
                 statement.setInt(3, item.getItemId());
             } else {
-                // Insert new item
+                // If the item does not exist, insert it into the cart
                 String insertQuery = "INSERT INTO cart_items (cartId, itemId, quantity) VALUES (?, ?, ?)";
                 statement = connection.prepareStatement(insertQuery);
                 statement.setInt(1, this.cartId);
@@ -160,28 +160,19 @@ public class Cart {
             }
             statement.executeUpdate();
 
-            // Update cart object and total amount
+            // Update in-memory cart and total amount
             cartItems.add(new CartItem(item, quantity));
-            calculateTotalAmount();
-            updateTotalAmount();
-
+            calculateTotalAmount(); // Recalculate and sync with database
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources(statement, connection);
         }
     }
 
-    // Update the total amount in the database
+    /**
+     * Updates the total amount in the database to match the in-memory value.
+     */
     private void updateTotalAmount() {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -190,26 +181,20 @@ public class Cart {
             connection = DatabaseConnection.getConnection();
             String updateQuery = "UPDATE cart SET totalAmount = ? WHERE cartId = ?";
             statement = connection.prepareStatement(updateQuery);
-            statement.setDouble(1, this.totalAmount);
+            statement.setDouble(1, this.totalAmount); // Sync in-memory total with database
             statement.setInt(2, this.cartId);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources(statement, connection);
         }
     }
 
-    // Remove an item from the cart in the database
+    /**
+     * Removes an item from the cart and ensures the total amount is consistent
+     * in the database.
+     */
     public void removeItem(int itemId) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -222,23 +207,13 @@ public class Cart {
             statement.setInt(2, itemId);
             statement.executeUpdate();
 
-            // Update cart object and total amount
+            // Update in-memory cart and total amount
             cartItems.removeIf(cartItem -> cartItem.getItem().getItemId() == itemId);
-            calculateTotalAmount();
-            updateTotalAmount();
+            calculateTotalAmount(); // Recalculate and update database
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources(statement, connection);
         }
     }
 
@@ -282,6 +257,51 @@ public class Cart {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Clears all items from the cart and resets the total amount to 0 in both
+     * memory and database.
+     */
+    public void clearCart(Connection connection) throws SQLException {
+        PreparedStatement deleteItemsStatement = null;
+        PreparedStatement updateCartStatement = null;
+
+        try {
+            // Remove all items from the cart
+            String deleteItemsQuery = "DELETE FROM cart_items WHERE cartId = ?";
+            deleteItemsStatement = connection.prepareStatement(deleteItemsQuery);
+            deleteItemsStatement.setInt(1, this.cartId);
+            deleteItemsStatement.executeUpdate();
+
+            // Reset total amount in the database
+            String updateCartQuery = "UPDATE cart SET totalAmount = 0 WHERE cartId = ?";
+            updateCartStatement = connection.prepareStatement(updateCartQuery);
+            updateCartStatement.setInt(1, this.cartId);
+            updateCartStatement.executeUpdate();
+
+            // Reset in-memory values
+            this.cartItems.clear();
+            this.totalAmount = 0.0;
+        } finally {
+            closeResources(deleteItemsStatement, updateCartStatement);
+        }
+    }
+
+    /**
+     * Utility method for closing resources (ResultSet, PreparedStatement,
+     * Connection).
+     */
+    private static void closeResources(AutoCloseable... resources) {
+        for (AutoCloseable resource : resources) {
+            if (resource != null) {
+                try {
+                    resource.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

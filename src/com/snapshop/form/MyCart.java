@@ -5,17 +5,14 @@
 package com.snapshop.form;
 
 import com.snapshop.component.CartItemComponent;
-import com.snapshop.component.Item;
-import com.snapshop.controller.CartController;
 import com.snapshop.controller.PlatformController;
+import com.snapshop.event.CheckoutListener;
 import com.snapshop.model.Cart;
 import com.snapshop.model.Cart.CartItem;
 import com.snapshop.model.Customer;
-import com.snapshop.model.ModelItem;
 import com.snapshop.swing.ScrollBar;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
-
 import javax.swing.SwingUtilities;
 
 /**
@@ -25,20 +22,21 @@ import javax.swing.SwingUtilities;
 public class MyCart extends javax.swing.JPanel {
 
     private PlatformController controller;
-    private CartController cartController;
     private Customer currentUser;
     private int customerId;
     private int cartId;
     private Cart cart;
 
+    private CheckoutListener checkoutListener;
+
     /**
      * Creates new form MyCart
      */
-    public MyCart() {
+    public MyCart(CheckoutListener checkoutListener) {
+        this.checkoutListener = checkoutListener;
         initComponents();
         scroll.setVerticalScrollBar(new ScrollBar());
         controller = PlatformController.getInstance();
-        cartController = new CartController();
         loadCartData();
         init();
     }
@@ -61,7 +59,7 @@ public class MyCart extends javax.swing.JPanel {
 
                 // Add each item from the cart to the UI
                 for (CartItem cartItem : cart.getCartItems()) {
-                    CartItemComponent cartItemComponent = new CartItemComponent(cart);
+                    CartItemComponent cartItemComponent = new CartItemComponent(cart, this);
                     cartItemComponent.setData(cartItem);
                     panelItem.add(cartItemComponent);
                 }
@@ -76,6 +74,13 @@ public class MyCart extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Your Cart is empty!", "INFO", JOptionPane.INFORMATION_MESSAGE);
             }
         });
+    }
+
+    public void refreshTotalAmount() {
+        if (cart != null) {
+            DecimalFormat df = new DecimalFormat("$#,##0.00");
+            totalAmount.setText(df.format(cart.getTotalAmount()));
+        }
     }
 
     /**
@@ -111,13 +116,22 @@ public class MyCart extends javax.swing.JPanel {
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
 
         totalAmount.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        totalAmount.setForeground(new java.awt.Color(0, 0, 0));
+        totalAmount.setForeground(new java.awt.Color(255, 51, 51));
         totalAmount.setText("123");
 
         checkoutBtn.setBackground(new java.awt.Color(255, 204, 51));
         checkoutBtn.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         checkoutBtn.setForeground(new java.awt.Color(0, 0, 0));
         checkoutBtn.setText("Proceed To Checkout");
+        checkoutBtn.setBorderPainted(false);
+        checkoutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        checkoutBtn.setFocusPainted(false);
+        checkoutBtn.setOpaque(true);
+        checkoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,8 +141,8 @@ public class MyCart extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(totalAmount)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 794, Short.MAX_VALUE)
+                .addComponent(totalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 728, Short.MAX_VALUE)
                 .addComponent(checkoutBtn)
                 .addGap(23, 23, 23))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,6 +182,25 @@ public class MyCart extends javax.swing.JPanel {
                 .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutBtnActionPerformed
+        // TODO add your handling code here:
+        // Check if the cart is empty
+        if (cart == null || cart.getCartItems().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Your cart is empty! Add items before proceeding to checkout.",
+                    "Cart Empty",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return; // Do not proceed to checkout
+        }
+
+        // Notify the listener to switch to the checkout panel
+        if (checkoutListener != null) {
+            checkoutListener.onCheckout();
+        }
+    }//GEN-LAST:event_checkoutBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
