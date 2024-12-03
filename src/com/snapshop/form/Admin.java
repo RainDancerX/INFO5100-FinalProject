@@ -6,6 +6,7 @@ package com.snapshop.form;
 
 import com.snapshop.controller.PlatformController;
 import java.awt.BorderLayout;
+
 /**
  *
  * @author lucas
@@ -14,6 +15,7 @@ public class Admin extends javax.swing.JFrame {
 
     private CustomerMgm customPanel;
     private AssociateMgm assPanel;
+    private VendorMgm venPanel;
     private PlatformController controller;
 
     ;
@@ -31,6 +33,7 @@ public class Admin extends javax.swing.JFrame {
         // Initialize and set up panels
         customPanel = new CustomerMgm();
         assPanel = new AssociateMgm();
+        venPanel = new VendorMgm();
 
         // Set default panel (Customer Management)
         switchToPanel(customPanel);
@@ -59,6 +62,7 @@ public class Admin extends javax.swing.JFrame {
         customerMgm = new javax.swing.JButton();
         associateMgm = new javax.swing.JButton();
         userIconBtn = new javax.swing.JButton();
+        vendorMgm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +126,20 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        vendorMgm.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        vendorMgm.setForeground(new java.awt.Color(102, 102, 102));
+        vendorMgm.setText("Vendor");
+        vendorMgm.setBorder(null);
+        vendorMgm.setBorderPainted(false);
+        vendorMgm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        vendorMgm.setFocusPainted(false);
+        vendorMgm.setFocusable(false);
+        vendorMgm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vendorMgmActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,7 +156,9 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(customerMgm)
                         .addGap(18, 18, 18)
                         .addComponent(associateMgm)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(vendorMgm)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addComponent(userIconBtn)
                         .addGap(23, 23, 23))))
         );
@@ -153,7 +173,8 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(customerMgm)
-                        .addComponent(associateMgm)))
+                        .addComponent(associateMgm)
+                        .addComponent(vendorMgm)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(adminMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -208,6 +229,11 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userIconBtnActionPerformed
 
+    private void vendorMgmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendorMgmActionPerformed
+        // TODO add your handling code here:
+        switchToPanel(venPanel); // Switch to AssociateMgm panel
+    }//GEN-LAST:event_vendorMgmActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adminMainPanel;
@@ -216,5 +242,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton userIconBtn;
+    private javax.swing.JButton vendorMgm;
     // End of variables declaration//GEN-END:variables
 }

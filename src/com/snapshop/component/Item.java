@@ -90,7 +90,7 @@ public class Item extends javax.swing.JPanel {
         lbItemName.setForeground(new java.awt.Color(76, 76, 76));
         lbItemName.setText("Item Name");
 
-        pic.setImage(new javax.swing.ImageIcon(getClass().getResource("/com/snapshop/image/img1.png"))); // NOI18N
+        pic.setImage(new javax.swing.ImageIcon(getClass().getResource("/com/snapshop/image/AIR+JORDAN+1+LOW.jpeg"))); // NOI18N
 
         lbPrice.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         lbPrice.setForeground(new java.awt.Color(76, 76, 76));

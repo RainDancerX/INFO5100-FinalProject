@@ -20,13 +20,14 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
-       controller = PlatformController.getInstance();
+        controller = PlatformController.getInstance();
         initComponents();
 
         // set Action command for user type radio button
         customerButton.setActionCommand("customer");
         adminButton.setActionCommand("admin");
         associateButton.setActionCommand("associate");
+        vendorButton.setActionCommand("vendor");
     }
 
     /**
@@ -56,6 +57,7 @@ public class Login extends javax.swing.JFrame {
         customerButton = new javax.swing.JRadioButton();
         adminButton = new javax.swing.JRadioButton();
         associateButton = new javax.swing.JRadioButton();
+        vendorButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -160,16 +162,24 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setText("User Type");
 
         roleGroup.add(customerButton);
+        customerButton.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         customerButton.setForeground(new java.awt.Color(102, 102, 102));
         customerButton.setText("Customer");
 
         roleGroup.add(adminButton);
+        adminButton.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         adminButton.setForeground(new java.awt.Color(102, 102, 102));
         adminButton.setText("Admin");
 
         roleGroup.add(associateButton);
+        associateButton.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
         associateButton.setForeground(new java.awt.Color(102, 102, 102));
         associateButton.setText("Associate");
+
+        roleGroup.add(vendorButton);
+        vendorButton.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        vendorButton.setForeground(new java.awt.Color(102, 102, 102));
+        vendorButton.setText("Vendor");
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
@@ -188,10 +198,12 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(LeftLayout.createSequentialGroup()
                                 .addComponent(customerButton)
-                                .addGap(31, 31, 31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(adminButton)
-                                .addGap(40, 40, 40)
-                                .addComponent(associateButton))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(associateButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(vendorButton))))
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jLabel1)))
@@ -221,7 +233,8 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(customerButton)
                     .addComponent(adminButton)
-                    .addComponent(associateButton))
+                    .addComponent(associateButton)
+                    .addComponent(vendorButton))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -230,7 +243,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(pwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -323,6 +336,14 @@ public class Login extends javax.swing.JFrame {
                     associateFrame.setLocationRelativeTo(null);
                     this.dispose();
                     break;
+                case "vendor":
+                    Vendor vendorFrame = new Vendor(controller);
+                    vendorFrame.setVisible(true);
+                    vendorFrame.pack();
+                    vendorFrame.setSize(1000, 650);
+                    vendorFrame.setLocationRelativeTo(null);
+                    this.dispose();
+                    break;
             }
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
@@ -348,5 +369,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.ButtonGroup roleGroup;
     private javax.swing.JButton signUpButton;
     private javax.swing.JTextField usernameInput;
+    private javax.swing.JRadioButton vendorButton;
     // End of variables declaration//GEN-END:variables
 }

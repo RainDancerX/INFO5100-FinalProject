@@ -11,36 +11,26 @@ import java.awt.BorderLayout;
  *
  * @author lucas
  */
-public class Associate extends javax.swing.JFrame {
+public class Vendor extends javax.swing.JFrame {
 
     private PlatformController controller;
-    private CouponMgm couponMgm;
-    private OrderMgm orderMgm;
+    private InventoryMgm invMgm;
 
     /**
-     * Creates new form Associate
+     * Creates new form Vendor
      */
-    public Associate(PlatformController controller) {
-        initComponents();
+    public Vendor(PlatformController controller) {
         this.controller = controller;
+        initComponents();
         init();
     }
 
-    private void init() {
-        // Initialize and set up panels
-        couponMgm = new CouponMgm();
-        orderMgm = new OrderMgm();
-
-        // Set default panel (Customer Management)
-        switchToPanel(orderMgm);
-    }
-
     private void switchToPanel(javax.swing.JPanel panel) {
-        associateMainPanel.removeAll(); // Clear current panel
-        associateMainPanel.setLayout(new BorderLayout());
-        associateMainPanel.add(panel, BorderLayout.CENTER); // Add new panel
-        associateMainPanel.revalidate(); // Refresh the panel
-        associateMainPanel.repaint();   // Ensure proper display
+        vendorMainPanel.removeAll(); // Clear current panel
+        vendorMainPanel.setLayout(new BorderLayout());
+        vendorMainPanel.add(panel, BorderLayout.CENTER); // Add new panel
+        vendorMainPanel.revalidate(); // Refresh the panel
+        vendorMainPanel.repaint();   // Ensure proper displayf
     }
 
     /**
@@ -54,10 +44,9 @@ public class Associate extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        ordersBtn = new javax.swing.JButton();
-        couponBtn = new javax.swing.JButton();
         userIconBtn = new javax.swing.JButton();
-        associateMainPanel = new javax.swing.JPanel();
+        vendorMainPanel = new javax.swing.JPanel();
+        inventoryBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,35 +55,7 @@ public class Associate extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Associate Portal");
-
-        ordersBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        ordersBtn.setForeground(new java.awt.Color(102, 102, 102));
-        ordersBtn.setText("Orders");
-        ordersBtn.setBorder(null);
-        ordersBtn.setBorderPainted(false);
-        ordersBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ordersBtn.setFocusPainted(false);
-        ordersBtn.setFocusable(false);
-        ordersBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ordersBtnActionPerformed(evt);
-            }
-        });
-
-        couponBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        couponBtn.setForeground(new java.awt.Color(102, 102, 102));
-        couponBtn.setText("Coupon");
-        couponBtn.setBorder(null);
-        couponBtn.setBorderPainted(false);
-        couponBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        couponBtn.setFocusPainted(false);
-        couponBtn.setFocusable(false);
-        couponBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                couponBtnActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Vendor Portal");
 
         userIconBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/snapshop/icon/user_icon.png"))); // NOI18N
         userIconBtn.setBorder(null);
@@ -108,18 +69,32 @@ public class Associate extends javax.swing.JFrame {
             }
         });
 
-        associateMainPanel.setOpaque(false);
+        vendorMainPanel.setOpaque(false);
 
-        javax.swing.GroupLayout associateMainPanelLayout = new javax.swing.GroupLayout(associateMainPanel);
-        associateMainPanel.setLayout(associateMainPanelLayout);
-        associateMainPanelLayout.setHorizontalGroup(
-            associateMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout vendorMainPanelLayout = new javax.swing.GroupLayout(vendorMainPanel);
+        vendorMainPanel.setLayout(vendorMainPanelLayout);
+        vendorMainPanelLayout.setHorizontalGroup(
+            vendorMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        associateMainPanelLayout.setVerticalGroup(
-            associateMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        vendorMainPanelLayout.setVerticalGroup(
+            vendorMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 437, Short.MAX_VALUE)
         );
+
+        inventoryBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        inventoryBtn.setForeground(new java.awt.Color(102, 102, 102));
+        inventoryBtn.setText("Inventory");
+        inventoryBtn.setBorder(null);
+        inventoryBtn.setBorderPainted(false);
+        inventoryBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        inventoryBtn.setFocusPainted(false);
+        inventoryBtn.setFocusable(false);
+        inventoryBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventoryBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,15 +104,13 @@ public class Associate extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(associateMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(vendorMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(41, 41, 41)
-                        .addComponent(ordersBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(couponBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
+                        .addGap(38, 38, 38)
+                        .addComponent(inventoryBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 398, Short.MAX_VALUE)
                         .addComponent(userIconBtn)
                         .addGap(19, 19, 19))))
         );
@@ -149,13 +122,12 @@ public class Associate extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(ordersBtn)
-                            .addComponent(couponBtn)))
+                            .addComponent(inventoryBtn)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(userIconBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(associateMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(vendorMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -172,6 +144,14 @@ public class Associate extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void init() {
+        // Initialize and set up panels
+        invMgm = new InventoryMgm();
+
+        // Set default panel (Customer Management)
+        switchToPanel(invMgm);
+    }
 
     private void userIconBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIconBtnActionPerformed
         // TODO add your handling code here:
@@ -198,23 +178,51 @@ public class Associate extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userIconBtnActionPerformed
 
-    private void couponBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_couponBtnActionPerformed
+    private void inventoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryBtnActionPerformed
         // TODO add your handling code here:
-        switchToPanel(couponMgm);
-    }//GEN-LAST:event_couponBtnActionPerformed
+        switchToPanel(invMgm);
+    }//GEN-LAST:event_inventoryBtnActionPerformed
 
-    private void ordersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersBtnActionPerformed
-        // TODO add your handling code here:
-        switchToPanel(orderMgm);
-    }//GEN-LAST:event_ordersBtnActionPerformed
-
+    /**
+     * @param args the command line arguments
+     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Vendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Vendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Vendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Vendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Vendor().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel associateMainPanel;
-    private javax.swing.JButton couponBtn;
+    private javax.swing.JButton inventoryBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton ordersBtn;
     private javax.swing.JButton userIconBtn;
+    private javax.swing.JPanel vendorMainPanel;
     // End of variables declaration//GEN-END:variables
 }

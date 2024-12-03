@@ -4,6 +4,7 @@
  */
 package com.snapshop.controller;
 
+import com.snapshop.model.Vendor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -248,6 +249,10 @@ public class PlatformController {
                     case "associate":
                         int associateId = resultSet.getInt("associateId");
                         currentUser = new Associate(username, password, associateId);
+                        break;
+                    case "vendor":
+                        int vendorId = resultSet.getInt("vendorId");
+                        currentUser = new Vendor(username, password, vendorId);
                         break;
                     default:
                         throw new IllegalArgumentException("Invalid role: " + role);

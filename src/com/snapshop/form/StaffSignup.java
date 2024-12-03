@@ -25,6 +25,7 @@ public class StaffSignup extends javax.swing.JFrame {
         initComponents();
         adminButton.setActionCommand("admin");
         associateButton.setActionCommand("associate");
+        vendorButton.setActionCommand("vendor");
     }
 
     /**
@@ -53,6 +54,7 @@ public class StaffSignup extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         pwdInput = new javax.swing.JPasswordField();
         usernameInput = new javax.swing.JTextField();
+        vendorButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sign Up");
@@ -158,6 +160,10 @@ public class StaffSignup extends javax.swing.JFrame {
         usernameInput.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         usernameInput.setForeground(new java.awt.Color(102, 102, 102));
 
+        roleGroup.add(vendorButton);
+        vendorButton.setForeground(new java.awt.Color(102, 102, 102));
+        vendorButton.setText("Vendor");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -175,8 +181,10 @@ public class StaffSignup extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(adminButton)
-                                .addGap(66, 66, 66)
-                                .addComponent(associateButton))
+                                .addGap(18, 18, 18)
+                                .addComponent(associateButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(vendorButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
@@ -192,7 +200,8 @@ public class StaffSignup extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(adminButton)
-                    .addComponent(associateButton))
+                    .addComponent(associateButton)
+                    .addComponent(vendorButton))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -295,8 +304,8 @@ public class StaffSignup extends javax.swing.JFrame {
 //                loginFrame.setVisible(true);
 //                loginFrame.pack();
 //                loginFrame.setLocationRelativeTo(null);
-                Admin admin = new Admin(controller);
-                admin.setVisible(true);
+                Admin admin = new Admin(controller); 
+               admin.setVisible(true);
                 admin.pack();
                 admin.setLocationRelativeTo(null);
                 this.dispose();
@@ -323,5 +332,6 @@ public class StaffSignup extends javax.swing.JFrame {
     private javax.swing.JTextField securityInput;
     private javax.swing.JButton signupButton;
     private javax.swing.JTextField usernameInput;
+    private javax.swing.JRadioButton vendorButton;
     // End of variables declaration//GEN-END:variables
 }
