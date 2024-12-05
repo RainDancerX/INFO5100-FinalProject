@@ -12,7 +12,10 @@ import com.snapshop.main.Dashboard;
 import com.snapshop.model.Customer;
 import com.snapshop.model.Order;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -33,6 +36,21 @@ public class HomeHeader extends javax.swing.JPanel {
         controller = PlatformController.getInstance();
         winButton3.initEvent(fram, bg);
         customer = (Customer) controller.getCurrentUser();
+        init();
+    }
+
+    public void init() {
+        int age = customer.getAge();
+        if (age < 18) {
+            adultBtn.setEnabled(false); // Disable the button
+            adultBtn.setVisible(false); // Hide the button (optional, depending on requirements)
+//            JOptionPane.showMessageDialog(null, "Underage Protection Activated!", "ALERT", JOptionPane.INFORMATION_MESSAGE);
+            Timer timer = new Timer(2000, e -> {
+                JOptionPane.showMessageDialog(null, "Underage Protection Activated!", "ALERT", JOptionPane.INFORMATION_MESSAGE);
+            });
+            timer.setRepeats(false); // Ensure the timer only triggers once
+            timer.start(); // Start the timer
+        }
     }
 
     public void setMainPanelListener(SwitchMainPanelListener listener) {
@@ -68,6 +86,7 @@ public class HomeHeader extends javax.swing.JPanel {
         femaleBtn = new javax.swing.JButton();
         maleBtn = new javax.swing.JButton();
         kidsBtn = new javax.swing.JButton();
+        adultBtn = new javax.swing.JButton();
 
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1038, 75));
@@ -182,6 +201,20 @@ public class HomeHeader extends javax.swing.JPanel {
             }
         });
 
+        adultBtn.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        adultBtn.setForeground(new java.awt.Color(102, 102, 102));
+        adultBtn.setText("Adult");
+        adultBtn.setBorder(null);
+        adultBtn.setBorderPainted(false);
+        adultBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        adultBtn.setFocusPainted(false);
+        adultBtn.setFocusable(false);
+        adultBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adultBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,7 +231,9 @@ public class HomeHeader extends javax.swing.JPanel {
                         .addComponent(maleBtn)
                         .addGap(18, 18, 18)
                         .addComponent(kidsBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(adultBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 258, Short.MAX_VALUE)
                         .addComponent(myOrdersBtn)
                         .addGap(18, 18, 18)
                         .addComponent(myCartBtn)
@@ -224,7 +259,8 @@ public class HomeHeader extends javax.swing.JPanel {
                                 .addComponent(logoutBtn)
                                 .addComponent(femaleBtn)
                                 .addComponent(maleBtn)
-                                .addComponent(kidsBtn)))
+                                .addComponent(kidsBtn)
+                                .addComponent(adultBtn)))
                         .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -415,9 +451,28 @@ public class HomeHeader extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_kidsBtnActionPerformed
 
+    private void adultBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adultBtnActionPerformed
+        // TODO add your handling code here:
+        if (listener != null) {
+            listener.showHomePanel();
+            Dashboard dashboard = (Dashboard) SwingUtilities.getWindowAncestor(this);
+            if (dashboard != null) {
+                FormHome formHome = dashboard.getHome();
+                if (formHome != null) {
+                    formHome.filterItems("category", "adult");
+                } else {
+                    System.out.println("FormHome is null when accessed from HomeHeader");
+                }
+            } else {
+                System.out.println("Dashboard is null when accessed from HomeHeader");
+            }
+        }
+    }//GEN-LAST:event_adultBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HomeBtn;
+    private javax.swing.JButton adultBtn;
     private javax.swing.JButton femaleBtn;
     private javax.swing.JButton kidsBtn;
     private javax.swing.JButton logoutBtn;

@@ -1,5 +1,6 @@
 package com.snapshop.form;
 
+import com.snapshop.component.SelectedItem;
 import com.snapshop.component.Item;
 import com.snapshop.controller.PlatformController;
 import com.snapshop.event.AddToCartListener;
